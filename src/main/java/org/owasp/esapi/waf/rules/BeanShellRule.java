@@ -60,7 +60,7 @@ public class BeanShellRule extends RuleWithUrlPath {
 		i = new Interpreter();
 		i.set("logger", logger);
 		this.script = getFileContents( ESAPI.securityConfiguration().getResourceFile(fileLocation));
-		this.id = id;		
+		//this.id = id;		
 	}
 	
 	public Action check(HttpServletRequest request,
@@ -105,7 +105,7 @@ public class BeanShellRule extends RuleWithUrlPath {
 			}
 			
 		} catch (EvalError e) {
-			log(request,"Error running custom beanshell rule (" + id + ") - " + e.getMessage());
+			//log(request,"Error running custom beanshell rule (" + id + ") - " + e.getMessage());
 		}
 	
 		return new DoNothingAction();

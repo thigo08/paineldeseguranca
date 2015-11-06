@@ -53,7 +53,7 @@ public class GeneralAttackSignatureRule extends Rule {
 
 	public GeneralAttackSignatureRule(String id, Pattern signature) {
 		this.signature = signature;
-		setId(id);
+		//ssetId(id);
 	}
 
 	public Action check(HttpServletRequest req,

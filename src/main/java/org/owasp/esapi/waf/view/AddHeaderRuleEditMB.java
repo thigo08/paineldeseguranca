@@ -50,7 +50,7 @@ public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, Lon
 
 	private static final long serialVersionUID = 1L;
 	
-	private DataModel<UrlPath> pathexceptions1;
+	private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private AddHeaderRuleBC addHeaderRuleBC;
@@ -70,7 +70,7 @@ public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, Lon
 	public String insert() {
 		AddHeaderRule addHeaderRule = getBean();
 		
-		urlPathBC.insert(addHeaderRule.getPath1());
+		urlPathBC.insert(addHeaderRule.getPath());
 		
 		this.addHeaderRuleBC.insert(getBean());
 		return getPreviousView();
@@ -85,19 +85,19 @@ public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, Lon
 	}
 	
 	public void addPathException() {
-		getBean().getExceptions1().add(new UrlPath());
+		getBean().getExceptions().add(new UrlPath());
 	}
 
 	public void deletePathException() {
-		getBean().getExceptions1().remove(getPathExceptions().getRowData());
+		getBean().getExceptions().remove(getPathExceptions().getRowData());
 	}
 
 	public DataModel<UrlPath> getPathExceptions() {
-		if (pathexceptions1 == null) {
-			pathexceptions1 = new ListDataModel<UrlPath>(getBean().getExceptions1());
+		if (pathexceptions == null) {
+			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
 		}
 
-		return pathexceptions1;
+		return pathexceptions;
 	}
 
 	@Override

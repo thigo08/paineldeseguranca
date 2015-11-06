@@ -13,36 +13,35 @@ import javax.persistence.Transient;
 @Entity
 public class UrlPath extends PatternEntity {
 	
-	private boolean isRegex;
+	private boolean typeRegex;
 	
 	public UrlPath (){
 		this.setRegex("/");
-		this.isRegex = true;
+		this.typeRegex = true;
 	}
 	
 	public UrlPath(Pattern pattern){
 		super(pattern);
-		this.isRegex = true;
+		this.typeRegex = true;
 	}
 	
 	public UrlPath(String url){
 		this.pattern = null;
 		this.setUrl(url);
-		this.isRegex = false;
+		this.typeRegex = false;
 	}
 	
 	public boolean matches(String uri){
-		if (isRegex){			
+		if (typeRegex){			
 			return super.matches(uri);				
 		} else {
 			return this.getUrl().equals(uri);
 		}
 	}
 		
-		
 	public UrlPath (String path, boolean regex){
 		this.setUrl(path);
-		this.isRegex = regex;
+		this.typeRegex = regex;
 	}
 
 	public String getUrl() {
@@ -53,11 +52,11 @@ public class UrlPath extends PatternEntity {
 		super.setRegex(url);
 	}
 
-	public boolean isRegex() {
-		return isRegex;
+	public boolean isTypeRegex() {
+		return typeRegex;
 	}
 
-	public void setIsRegex(boolean isRegex) {
-		this.isRegex = isRegex;
+	public void setTypeRegex(boolean typeRegex) {
+		this.typeRegex = typeRegex;
 	}
 }

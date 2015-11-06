@@ -58,7 +58,7 @@ public class PathExtensionRule extends Rule {
 	public PathExtensionRule (String id, Pattern allow, Pattern deny) {
 		this.allow = allow;
 		this.deny = deny;
-		setId(id);
+		//setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

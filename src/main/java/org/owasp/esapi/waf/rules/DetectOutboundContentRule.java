@@ -69,7 +69,7 @@ public class DetectOutboundContentRule extends Rule {
 		this.contentType = contentType;
 		this.pattern = pattern;
 		this.uri = uri;
-		setId(id);
+		//setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

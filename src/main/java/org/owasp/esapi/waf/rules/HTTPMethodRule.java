@@ -66,7 +66,7 @@ public class HTTPMethodRule extends Rule {
 		this.allowedMethods = allowedMethods;
 		this.deniedMethods = deniedMethods;
 		this.path = path;
-		setId(id);
+		//setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

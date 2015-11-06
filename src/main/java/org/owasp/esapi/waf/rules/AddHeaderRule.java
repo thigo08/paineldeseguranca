@@ -47,7 +47,7 @@ public class AddHeaderRule extends RuleWithExceptions {
 
 	public AddHeaderRule(String id, String header, String value, Pattern path, List<Object> exceptions) {
 		super(path);
-		setId(id);
+		//setId(id);
 		this.header = header;
 		this.value = value;		
 		super.fillExceptionsWithListOfObjects(exceptions);

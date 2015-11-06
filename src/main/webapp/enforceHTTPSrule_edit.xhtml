@@ -80,14 +80,14 @@
 
 					<h:outputLabel value="#{messages['enforceHTTPSrule.label.id']}: "
 						for="id" styleClass="text-input" />
-					<h:outputText id="id" value="#{enforceHTTPSRuleEditMB.bean.id1}" />
+					<h:outputText id="id" value="#{enforceHTTPSRuleEditMB.bean.id}" />
 					<p:message for="id" />
 
 				<h:outputLabel
 						value="#{messages['enforceHTTPSrule.label.path']}: " for="path"
 						styleClass="text-input" />
 					<h:inputText id="path"
-						value="#{enforceHTTPSRuleEditMB.bean.path1.url}"
+						value="#{enforceHTTPSRuleEditMB.bean.path.url}"
 						title="#{messages['enforceHTTPSrule.alt.path']}" required="true">
 					</h:inputText>
 					<p:message for="path" />
@@ -107,7 +107,7 @@
 					</h:panelGrid>
 					<p:dataTable id="listException" var="exception"
 						resizableColumns="true"
-						value="#{enforceHTTPSRuleEditMB.pathExceptions1}"
+						value="#{enforceHTTPSRuleEditMB.pathExceptions}"
 						rowIndexVar="index">
 
 						<p:columnGroup type="header">
@@ -123,7 +123,7 @@
 						</p:column>
 
 						<p:column style="text-align: center;">
-							<p:selectBooleanCheckbox value="#{exception.regex}" />
+							<p:selectBooleanCheckbox value="#{exception.typeRegex}" />
 						</p:column>
 
 						<p:column style="text-align: center;">

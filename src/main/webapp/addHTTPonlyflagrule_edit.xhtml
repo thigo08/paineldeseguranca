@@ -79,11 +79,9 @@
 				<h:panelGrid id="fields" columns="3" cellpadding="2" cellspacing="4">
 
 					<h:outputLabel value="#{messages['addHTTPonlyflagrule.label.id']}: "
-						for="id1" styleClass="text-input" />
-					<h:outputText id="id1" value="#{addHTTPOnlyFlagRuleEditMB.bean.id1}" />
-					<p:message for="id1" />
-					
-		
+						for="id" styleClass="text-input" />
+					<h:outputText id="id" value="#{addHTTPOnlyFlagRuleEditMB.bean.id}" />
+					<p:message for="id" />
 
 				</h:panelGrid>
 				
@@ -106,17 +104,12 @@
 						<p:columnGroup type="header">
 							<p:row>
 								<p:column headerText="#{messages['urlpath.label.path']}" />
-								<p:column headerText="#{messages['urlpath.label.regex']}"/>
 								<p:column headerText="#{messages['label.acao']}" />
 							</p:row>
 						</p:columnGroup>
 
-						<p:column sortBy="#{exception.url}" >
-							<p:inputText value="#{exception.url}" style="width:100%"/>
-						</p:column>
-
-						<p:column style="text-align: center;">
-							<p:selectBooleanCheckbox value="#{exception.regex}" />
+						<p:column sortBy="#{exception.regex}" >
+							<p:inputText value="#{exception.regex}" style="width:100%"/>
 						</p:column>
 
 						<p:column style="text-align: center;">

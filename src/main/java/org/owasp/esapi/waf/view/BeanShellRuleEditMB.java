@@ -47,8 +47,6 @@ public class BeanShellRuleEditMB extends AbstractEditPageBean<BeanShellRule, Lon
 
 	private static final long serialVersionUID = 1L;
 	
-	//private DataModel<UrlPath> pathexceptions;
-	
 	@Inject
 	private BeanShellRuleBC beanShellRuleBC;
 	
@@ -67,7 +65,7 @@ public class BeanShellRuleEditMB extends AbstractEditPageBean<BeanShellRule, Lon
 	public String insert() {
 		BeanShellRule beanShellRule = getBean();
 		
-		urlPathBC.insert(beanShellRule.getPath1());
+		urlPathBC.insert(beanShellRule.getPath());
 		
 		this.beanShellRuleBC.insert(getBean());
 		return getPreviousView();
@@ -80,22 +78,6 @@ public class BeanShellRuleEditMB extends AbstractEditPageBean<BeanShellRule, Lon
 		this.beanShellRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
 	protected BeanShellRule handleLoad(Long id) {

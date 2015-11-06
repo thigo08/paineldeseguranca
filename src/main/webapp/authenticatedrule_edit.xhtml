@@ -79,9 +79,9 @@
 				<h:panelGrid id="fields" columns="3" cellpadding="2" cellspacing="4">
 				
 					<h:outputLabel value="#{messages['authenticatedrule.label.id']}: "
-						for="id1" styleClass="text-input" />
-					<h:outputText id="id1" value="#{authenticatedRuleEditMB.bean.id1}" />
-					<p:message for="id1" />
+						for="id" styleClass="text-input" />
+					<h:outputText id="id" value="#{authenticatedRuleEditMB.bean.id}" />
+					<p:message for="id" />
 
 					<h:outputLabel
 						value="#{messages['authenticatedrule.label.sessionAttribute']}: "
@@ -97,7 +97,7 @@
 						value="#{messages['authenticatedrule.label.path']}: " for="path"
 						styleClass="text-input" />
 					<h:inputText id="path"
-						value="#{authenticatedRuleEditMB.bean.path1.url}"
+						value="#{authenticatedRuleEditMB.bean.path.url}"
 						title="#{messages['authenticatedrule.alt.path']}" required="true">
 					</h:inputText>
 					<p:message for="path" />
@@ -116,7 +116,7 @@
 					</h:panelGrid>
 					<p:dataTable id="listException" var="exception"
 						resizableColumns="true"
-						value="#{authenticatedRuleEditMB.pathExceptions1}"
+						value="#{authenticatedRuleEditMB.pathExceptions}"
 						rowIndexVar="index">
 
 						<p:columnGroup type="header">

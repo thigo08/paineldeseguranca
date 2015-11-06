@@ -50,7 +50,7 @@ public class EnforceHTTPSRuleEditMB extends AbstractEditPageBean<EnforceHTTPSRul
 
 	private static final long serialVersionUID = 1L;
 	
-	private DataModel<UrlPath> pathexceptions1;
+	private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private EnforceHTTPSRuleBC enforceHTTPSRuleBC;
@@ -70,7 +70,7 @@ public class EnforceHTTPSRuleEditMB extends AbstractEditPageBean<EnforceHTTPSRul
 	public String insert() {
 		EnforceHTTPSRule enforceHTTPSRule = getBean();
 				
-		urlPathBC.insert(enforceHTTPSRule.getPath1());
+		urlPathBC.insert(enforceHTTPSRule.getPath());
 		
 		this.enforceHTTPSRuleBC.insert(getBean());
 		return getPreviousView();
@@ -84,20 +84,20 @@ public class EnforceHTTPSRuleEditMB extends AbstractEditPageBean<EnforceHTTPSRul
 		return getPreviousView();
 	}
 	
-	public DataModel<UrlPath> getPathExceptions1() {
-		if (pathexceptions1 == null) {
-			pathexceptions1 = new ListDataModel<UrlPath>(getBean().getExceptions1());
+	public DataModel<UrlPath> getPathExceptions() {
+		if (pathexceptions == null) {
+			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
 		}
 
-		return pathexceptions1;
+		return pathexceptions;
 	}
 	
 	public void addPathException() {
-		getBean().getExceptions1().add(new UrlPath());
+		getBean().getExceptions().add(new UrlPath());
 	}
 
 	public void deletePathException() {
-		getBean().getExceptions1().remove(getPathExceptions1().getRowData());
+		getBean().getExceptions().remove(getPathExceptions().getRowData());
 	}
 
 	@Override

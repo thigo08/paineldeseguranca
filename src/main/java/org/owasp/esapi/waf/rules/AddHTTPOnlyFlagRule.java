@@ -49,7 +49,7 @@ public class AddHTTPOnlyFlagRule extends RuleWithPatterns {
 	}
 	
 	public AddHTTPOnlyFlagRule(String id, List<Pattern> name) {
-		setId(id);
+		//setId(id);
 		super.fillListOfPatternEntity(name);
 	}
 

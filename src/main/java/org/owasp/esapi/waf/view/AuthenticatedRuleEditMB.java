@@ -50,7 +50,7 @@ public class AuthenticatedRuleEditMB extends AbstractEditPageBean<AuthenticatedR
 
 	private static final long serialVersionUID = 1L;
 	
-	private DataModel<UrlPath> pathexceptions1;
+	private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private AuthenticatedRuleBC authenticatedRuleBC;
@@ -70,7 +70,7 @@ public class AuthenticatedRuleEditMB extends AbstractEditPageBean<AuthenticatedR
 	public String insert() {
 		AuthenticatedRule authtenticatedRule = getBean();
 				
-		urlPathBC.insert(authtenticatedRule.getPath1());
+		urlPathBC.insert(authtenticatedRule.getPath());
 		
 		this.authenticatedRuleBC.insert(getBean());
 		return getPreviousView();
@@ -84,20 +84,20 @@ public class AuthenticatedRuleEditMB extends AbstractEditPageBean<AuthenticatedR
 		return getPreviousView();
 	}
 	
-	public DataModel<UrlPath> getPathExceptions1() {
-		if (pathexceptions1 == null) {
-			pathexceptions1 = new ListDataModel<UrlPath>(getBean().getExceptions1());
+	public DataModel<UrlPath> getPathExceptions() {
+		if (pathexceptions == null) {
+			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
 		}
 
-		return pathexceptions1;
+		return pathexceptions;
 	}
 	
 	public void addPathException() {
-		getBean().getExceptions1().add(new UrlPath());
+		getBean().getExceptions().add(new UrlPath());
 	}
 
 	public void deletePathException() {
-		getBean().getExceptions1().remove(getPathExceptions1().getRowData());
+		getBean().getExceptions().remove(getPathExceptions().getRowData());
 	}
 
 	@Override

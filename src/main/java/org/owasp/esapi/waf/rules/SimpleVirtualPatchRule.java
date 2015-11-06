@@ -65,7 +65,7 @@ public class SimpleVirtualPatchRule extends Rule {
 	}
 
 	public SimpleVirtualPatchRule(String id, Pattern path, String variable, Pattern valid, String message) {
-		setId(id);
+		//setId(id);
 		this.path = path;
 		this.variable = variable;
 		this.valid = valid;

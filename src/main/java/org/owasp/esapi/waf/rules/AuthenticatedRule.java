@@ -56,7 +56,7 @@ public class AuthenticatedRule extends RuleWithExceptions {
 		
 		super.fillExceptionsWithListOfObjects(exceptions);
 		
-		setId(id);
+		//setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

@@ -61,19 +61,22 @@
 			<p:dataTable id="list" var="bean" value="#{addHeaderRuleListMB.resultList}">
 				<f:facet name="header">#{messages['addheaderrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{addHeaderRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{addHeaderRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['addheaderrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{addHeaderRuleListMB.getNextView()}" actionListener="#{addHeaderRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
 				<p:column sortBy="#{bean.header}">
 					<f:facet name="header">#{messages['addheaderrule.label.header']}</f:facet>
 					<h:commandLink action="#{addHeaderRuleListMB.getNextView()}" actionListener="#{addHeaderRuleListMB.clear}">
 						<h:outputText value="#{bean.header}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -81,15 +84,15 @@
 					<f:facet name="header">#{messages['addheaderrule.label.value']}</f:facet>
 					<h:commandLink action="#{addHeaderRuleListMB.getNextView()}" actionListener="#{addHeaderRuleListMB.clear}">
 						<h:outputText value="#{bean.value}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.path1.url}">
+				<p:column sortBy="#{bean.path.url}">
 					<f:facet name="header">#{messages['addheaderrule.label.path']}</f:facet>
 					<h:commandLink action="#{addHeaderRuleListMB.getNextView()}" actionListener="#{addHeaderRuleListMB.clear}">
-						<h:outputText value="#{bean.path1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.path.url}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

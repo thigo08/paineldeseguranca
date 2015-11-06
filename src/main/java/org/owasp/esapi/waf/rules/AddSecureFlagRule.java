@@ -48,7 +48,7 @@ public class AddSecureFlagRule extends RuleWithPatterns {
 	}
 
 	public AddSecureFlagRule(String id, List<Pattern> name) {
-		setId(id);
+		//setId(id);
 		super.fillListOfPatternEntity(name);
 	}
 

@@ -66,14 +66,14 @@ public class IPRule extends Rule {
 		this.path = path;
 		this.useExactPath = false;
 		this.ipHeader = ipHeader;
-		setId(id);
+		//setId(id);
 	}
 
 	public IPRule(String id, Pattern allowedIP, String exactPath) {
 		this.path = null;
 		this.exactPath = exactPath;
 		this.useExactPath = true;
-		setId(id);
+		//setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

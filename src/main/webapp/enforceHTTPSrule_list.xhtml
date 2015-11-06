@@ -61,19 +61,22 @@
 			<p:dataTable id="list" var="bean" value="#{enforceHTTPSRuleListMB.resultList}">
 				<f:facet name="header">#{messages['enforceHTTPSrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{enforceHTTPSRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{enforceHTTPSRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['enforceHTTPSrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{enforceHTTPSRuleListMB.getNextView()}" actionListener="#{enforceHTTPSRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.path1.url}">
+				<p:column sortBy="#{bean.path.url}">
 					<f:facet name="header">#{messages['enforceHTTPSrule.label.path']}</f:facet>
 					<h:commandLink action="#{enforceHTTPSRuleListMB.getNextView()}" actionListener="#{enforceHTTPSRuleListMB.clear}">
-						<h:outputText value="#{bean.path1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.path.url}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

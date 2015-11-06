@@ -39,102 +39,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form>
-		<p:menubar  style="font-weight: bold; font-size: small"  rendered="#{securityContext.loggedIn}">
-		
-			<p:submenu label="#{messages['menu.alias']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/alias_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/alias_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.settings']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/settings_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/settings_list.jsf"></p:menuitem>
-			</p:submenu>
-		
-			<p:submenu label="#{messages['menu.addheaderrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/addheaderrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/addheaderrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.addHTTPonlyflagrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="addHTTPonlyflagrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/addHTTPonlyflagrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.addsecureflagrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/addsecureflagrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/addsecureflagrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.authenticatedrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/authenticatedrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/authenticatedrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.beanshellrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/beanshellrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/beanshellrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.detectoutboundcontentrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/detectoutboundcontentrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/detectoutboundcontentrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.enforceHTTPSrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/enforceHTTPSrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/enforceHTTPSrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.generalattacksignaturerule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/generalattacksignaturerule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/generalattacksignaturerule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.HTTPmethodrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/httpmethodrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/httpmethodrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.IPrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/iprule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/iprule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.mustmatchrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/mustmatchrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/mustmatchrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.pathextensionrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/pathextensionrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/pathextensionrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.replacecontentrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/replacecontentrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/replacecontentrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.restrictcontenttyperule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/restrictcontenttyperule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/restrictcontenttyperule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.restrictuseragentrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/restrictuseragentrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/restrictuseragentrule_list.jsf"></p:menuitem>
-			</p:submenu>
-			
-			<p:submenu label="#{messages['menu.simplevirtualpatchrule']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/simplevirtualpatchrule_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/simplevirtualpatchrule_list.jsf"></p:menuitem>
-			</p:submenu>
-
-			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="login.jsf"
-				action="#{loginMB.doLogout}" />
-				
-		</p:menubar>
+		<p:tabMenu activeIndex="#{param.i}">
+		    <p:menuitem value="Alias" outcome="/menu_alias.jsf" icon=" ui-icon-carat-2-e-w">
+		        <f:param name="i" value="0" />
+		    </p:menuitem>
+		    <p:menuitem value="Rules" outcome="/menu_rules.jsf" icon="ui-icon-document">
+		        <f:param name="i" value="1" />
+		    </p:menuitem>
+		    <p:menuitem value="Settings" outcome="/menu_settings.jsf" icon="ui-icon-wrench">
+		        <f:param name="i" value="2" />
+		    </p:menuitem>
+		     <p:menuitem value="Logout" url="/login.jsf" icon="ui-icon-extlink" action="#{loginMB.doLogout}">
+		        <f:param name="i" value="3" />
+		    </p:menuitem>
+		</p:tabMenu>
 	</h:form>
 
 </ui:composition>

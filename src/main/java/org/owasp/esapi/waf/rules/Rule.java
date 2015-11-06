@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -44,9 +45,8 @@ public abstract class Rule implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	protected String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 	
 	@Transient
 	protected static Logger logger = ESAPI.getLogger(Rule.class);
@@ -62,12 +62,12 @@ public abstract class Rule implements Serializable{
 				",Rule=" + this.getClass().getSimpleName() + ",ID="+id+"] " + message);
 	}
 	
-	public void setId(String id) {
-		this.id = id;
+	public Long getId() {
+		return id;
 	}
-	
-	public String getId(){
-		return this.id;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String toString() {

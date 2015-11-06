@@ -70,7 +70,7 @@ public class MustMatchRule extends Rule {
 		this.variable = variable;
 		this.operator = operator;
 		this.value = value;
-		setId(id);
+		//setId(id);
 	}
 
 	public Action check(HttpServletRequest req,

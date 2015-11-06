@@ -13,6 +13,11 @@ import javax.persistence.OneToMany;
 @Entity
 public abstract class RuleWithPatterns extends RuleWithUrlPath {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
 	@JoinColumn(name = "fk_id_rule")
 	private List<PatternEntity> patternList;

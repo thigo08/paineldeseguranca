@@ -90,45 +90,6 @@
 				</h:panelGrid>
 
 				<br />
-	
-				<p:fieldset id="pathException"
-					legend="#{messages['menu.alias']}" toggleable="true"
-					toggleSpeed="500">
-					<h:panelGrid id="fieldsException" columns="1">
-						<p:commandButton value="+"
-							title="#{messages['button.add']}"
-							action="#{aliasEditMB.addPathException}"
-							update="listException" />
-					</h:panelGrid>
-					<p:dataTable id="listException" var="exception"
-						resizableColumns="true"
-						value="#{aliasEditMB.pathExceptions}"
-						rowIndexVar="index">
-
-						<p:columnGroup type="header">
-							<p:row>
-								<p:column headerText="#{messages['urlpath.label.path']}" />
-								<p:column headerText="#{messages['urlpath.label.regex']}"/>
-								<p:column headerText="#{messages['label.acao']}" />
-							</p:row>
-						</p:columnGroup>
-
-						<p:column sortBy="#{exception.url}" >
-							<p:inputText value="#{exception.url}" style="width:100%"/>
-						</p:column>
-
-						<p:column style="text-align: center;">
-							<p:selectBooleanCheckbox value="#{exception.regex}" />
-						</p:column>
-
-						<p:column style="text-align: center;">
-							<p:commandButton  icon="ui-icon-trash"								
-								title="#{messages['button.delete']}"							
-								action="#{aliasEditMB.deletePathException}"
-								update="listException" ajax="true" />
-						</p:column>
-					</p:dataTable>
-				</p:fieldset>
 
 			</p:fieldset>
 

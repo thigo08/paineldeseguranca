@@ -37,6 +37,7 @@ import javax.inject.Inject;
 import org.owasp.esapi.waf.business.AddSecureFlagRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.AddSecureFlagRule;
+import org.owasp.esapi.waf.rules.PatternEntity;
 import org.owasp.esapi.waf.rules.UrlPath;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
@@ -50,7 +51,7 @@ public class AddSecureFlagRuleEditMB extends AbstractEditPageBean<AddSecureFlagR
 
 	private static final long serialVersionUID = 1L;
 	
-	private DataModel<UrlPath> cookiename;
+	private DataModel<PatternEntity> cookiename;
 	
 	@Inject
 	private AddSecureFlagRuleBC addSecureFlagRuleBC;
@@ -83,20 +84,20 @@ public class AddSecureFlagRuleEditMB extends AbstractEditPageBean<AddSecureFlagR
 		return getPreviousView();
 	}
 	
-	public DataModel<UrlPath> getCookieName() {
+	public DataModel<PatternEntity> getCookieName() {
 		if (cookiename == null) {
-			cookiename = new ListDataModel<UrlPath>(getBean().getName1());
+			cookiename = new ListDataModel<PatternEntity>(getBean().getPatternList());
 		}
 
 		return cookiename;
 	}
 	
 	public void addPathException() {
-		getBean().getName1().add(new UrlPath());
+		getBean().getPatternList().add(new PatternEntity());
 	}
 
 	public void deletePathException() {
-		getBean().getName1().remove(getCookieName().getRowData());
+		getBean().getPatternList().remove(getCookieName().getRowData());
 	}
 
 	@Override

@@ -72,7 +72,7 @@ public class ReplaceContentRule extends Rule {
 		this.replacement = replacement;
 		this.path = path;
 		this.contentType = contentType;
-		setId(id);
+		//setId(id);
 	}
 
 	/*
