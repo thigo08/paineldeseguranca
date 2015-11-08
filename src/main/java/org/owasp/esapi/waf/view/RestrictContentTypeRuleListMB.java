@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./restrictcontenttyperule_edit.jsf")
 @PreviousView("./restrictcontenttyperule_list.jsf")
-public class RestrictContentTypeRuleListMB extends AbstractListPageBean<RestrictContentTypeRule, Long> {
+public class RestrictContentTypeRuleListMB extends AbstractListPageBean<RestrictContentTypeRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class RestrictContentTypeRuleListMB extends AbstractListPageBean<Restrict
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				restrictContentTypeRuleBC.delete(id);

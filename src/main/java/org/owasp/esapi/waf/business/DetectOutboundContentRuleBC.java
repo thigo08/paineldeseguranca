@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class DetectOutboundContentRuleBC extends DelegateCrud<DetectOutboundContentRule, Long, DetectOutboundContentRuleDAO> {
+public class DetectOutboundContentRuleBC extends DelegateCrud<DetectOutboundContentRule, String, DetectOutboundContentRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

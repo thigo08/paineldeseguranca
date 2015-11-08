@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +30,7 @@ import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -44,6 +43,7 @@ import bsh.Interpreter;
 @Entity
 public class BeanShellRule extends RuleWithUrlPath {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Transient
@@ -60,7 +60,7 @@ public class BeanShellRule extends RuleWithUrlPath {
 		i = new Interpreter();
 		i.set("logger", logger);
 		this.script = getFileContents( ESAPI.securityConfiguration().getResourceFile(fileLocation));
-		//this.id = id;		
+		setId(id);		
 	}
 	
 	public Action check(HttpServletRequest request,

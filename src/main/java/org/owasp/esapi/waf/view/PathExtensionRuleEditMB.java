@@ -33,7 +33,7 @@ package org.owasp.esapi.waf.view;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.PathExtensionRuleBC;
-import org.owasp.esapi.waf.business.UrlPathBC;
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.rules.PathExtensionRule;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
@@ -43,17 +43,15 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./pathextensionrule_list.jsf")
-public class PathExtensionRuleEditMB extends AbstractEditPageBean<PathExtensionRule, Long> {
+public class PathExtensionRuleEditMB extends AbstractEditPageBean<PathExtensionRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private PathExtensionRuleBC pathExtensionRuleBC;
 	
 	@Inject
-	private UrlPathBC urlPathBC;
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,13 +65,12 @@ public class PathExtensionRuleEditMB extends AbstractEditPageBean<PathExtensionR
 	public String insert() {
 		PathExtensionRule pathExtensionRule = getBean();
 		
-		urlPathBC.insert(pathExtensionRule.getAllow1());
-		urlPathBC.insert(pathExtensionRule.getDeny1());
+		patternEntityBC.insert(pathExtensionRule.getAllow());
+		patternEntityBC.insert(pathExtensionRule.getDeny());
 		
 		this.pathExtensionRuleBC.insert(getBean());
 		return getPreviousView();
-	}
-	
+	}	
 	
 	@Override
 	@Transactional
@@ -81,25 +78,9 @@ public class PathExtensionRuleEditMB extends AbstractEditPageBean<PathExtensionR
 		this.pathExtensionRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected PathExtensionRule handleLoad(Long id) {
+	protected PathExtensionRule handleLoad(String id) {
 		return this.pathExtensionRuleBC.load(id);
 	}
 		

@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./enforceHTTPSrule_edit.jsf")
 @PreviousView("./aenforceHTTPSrule_list.jsf")
-public class EnforceHTTPSRuleListMB extends AbstractListPageBean<EnforceHTTPSRule, Long> {
+public class EnforceHTTPSRuleListMB extends AbstractListPageBean<EnforceHTTPSRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class EnforceHTTPSRuleListMB extends AbstractListPageBean<EnforceHTTPSRul
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				enforceHTTPSRuleBC.delete(id);

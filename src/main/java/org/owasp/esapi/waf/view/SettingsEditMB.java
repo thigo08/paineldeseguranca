@@ -32,9 +32,8 @@ package org.owasp.esapi.waf.view;
 
 import javax.inject.Inject;
 
-import org.owasp.esapi.waf.business.SettingsBC;
-import org.owasp.esapi.waf.business.UrlPathBC;
-import org.owasp.esapi.waf.rules.Settings;
+import org.owasp.esapi.waf.business.AppGuardianConfigurationBC;
+import org.owasp.esapi.waf.configuration.AppGuardianConfiguration;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -43,63 +42,41 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./settings_list.jsf")
-public class SettingsEditMB extends AbstractEditPageBean<Settings, Long> {
+public class SettingsEditMB extends AbstractEditPageBean<AppGuardianConfiguration, Long> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
-	
+			
 	@Inject
-	private  SettingsBC settingsBC;
-	
-	@Inject
-	private UrlPathBC urlPathBC;
-	
+	private  AppGuardianConfigurationBC appGuardianConfigurationBC;
+		
 	@Override
 	@Transactional
 	public String delete() {
-		this.settingsBC.delete(getId());
+		
 		return getPreviousView();
 	}
 	
 	@Override
 	@Transactional
 	public String insert() {	
-		Settings settings = getBean();
 		
-		urlPathBC.insert(settings.getDefaultRedirectPage());
-		
-		this.settingsBC.insert(getBean());
 		return getPreviousView();
 	}
 	
+	public Long getSingletonID(){
+		return appGuardianConfigurationBC.loadSingletonInstance().getId();
+	}
 	
 	@Override
 	@Transactional
 	public String update() {
-		this.settingsBC.update(getBean());
+		appGuardianConfigurationBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected Settings handleLoad(Long id) {
-		return this.settingsBC.load(id);
+	protected AppGuardianConfiguration handleLoad(Long id) {
+		return this.appGuardianConfigurationBC.load(id);
 	}
 		
 }

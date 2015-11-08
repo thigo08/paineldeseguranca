@@ -34,12 +34,10 @@ import org.owasp.esapi.waf.persistence.AddHeaderRuleDAO;
 import org.owasp.esapi.waf.rules.AddHeaderRule;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
-import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class AddHeaderRuleBC extends DelegateCrud<AddHeaderRule, Long, AddHeaderRuleDAO> {
+public class AddHeaderRuleBC extends DelegateCrudAppGuardianHelper<AddHeaderRule, String, AddHeaderRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
-
 
 }

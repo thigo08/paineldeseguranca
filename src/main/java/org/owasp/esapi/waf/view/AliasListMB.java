@@ -36,7 +36,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.AliasBC;
-import org.owasp.esapi.waf.rules.Alias;
+import org.owasp.esapi.waf.configuration.Alias;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;

@@ -37,8 +37,7 @@ import javax.inject.Inject;
 import org.owasp.esapi.waf.business.AddSecureFlagRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.AddSecureFlagRule;
-import org.owasp.esapi.waf.rules.PatternEntity;
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -47,7 +46,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./addsecureflagrule_list.jsf")
-public class AddSecureFlagRuleEditMB extends AbstractEditPageBean<AddSecureFlagRule, Long> {
+public class AddSecureFlagRuleEditMB extends AbstractEditPageBean<AddSecureFlagRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -101,7 +100,7 @@ public class AddSecureFlagRuleEditMB extends AbstractEditPageBean<AddSecureFlagR
 	}
 
 	@Override
-	protected AddSecureFlagRule handleLoad(Long id) {
+	protected AddSecureFlagRule handleLoad(String id) {
 		return this.addSecureFlagRuleBC.load(id);
 	}
 		

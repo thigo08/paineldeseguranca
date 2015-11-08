@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./addHTTPonlyflagrule_edit.jsf")
 @PreviousView("./addHTTPonlyflagrule_list.jsf")
-public class AddHTTPOnlyFlagRuleListMB extends AbstractListPageBean<AddHTTPOnlyFlagRule, Long> {
+public class AddHTTPOnlyFlagRuleListMB extends AbstractListPageBean<AddHTTPOnlyFlagRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class AddHTTPOnlyFlagRuleListMB extends AbstractListPageBean<AddHTTPOnlyF
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				addHTTPOnlyFlagRuleBC.delete(id);

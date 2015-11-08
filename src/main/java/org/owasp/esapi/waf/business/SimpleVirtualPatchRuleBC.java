@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class SimpleVirtualPatchRuleBC extends DelegateCrud<SimpleVirtualPatchRule, Long, SimpleVirtualPatchRuleDAO> {
+public class SimpleVirtualPatchRuleBC extends DelegateCrud<SimpleVirtualPatchRule, String, SimpleVirtualPatchRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

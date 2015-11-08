@@ -32,8 +32,8 @@ package org.owasp.esapi.waf.view;
 
 import javax.inject.Inject;
 
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.SimpleVirtualPatchRuleBC;
-import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.SimpleVirtualPatchRule;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
@@ -43,17 +43,15 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./simplevirtualpatchrule_list.jsf")
-public class SimpleVirtualPatchRuleEditMB extends AbstractEditPageBean<SimpleVirtualPatchRule, Long> {
+public class SimpleVirtualPatchRuleEditMB extends AbstractEditPageBean<SimpleVirtualPatchRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private SimpleVirtualPatchRuleBC simpleVirtualPatchRuleBC;
 	
 	@Inject
-	private UrlPathBC urlPathBC;
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,8 +65,8 @@ public class SimpleVirtualPatchRuleEditMB extends AbstractEditPageBean<SimpleVir
 	public String insert() {
 		SimpleVirtualPatchRule simpleVirtualPatchRule = getBean();
 		
-		urlPathBC.insert(simpleVirtualPatchRule.getPath1());
-		urlPathBC.insert(simpleVirtualPatchRule.getValid1());
+		patternEntityBC.insert(simpleVirtualPatchRule.getPath());
+		patternEntityBC.insert(simpleVirtualPatchRule.getValid());
 		
 		this.simpleVirtualPatchRuleBC.insert(getBean());
 		return getPreviousView();
@@ -81,25 +79,9 @@ public class SimpleVirtualPatchRuleEditMB extends AbstractEditPageBean<SimpleVir
 		this.simpleVirtualPatchRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected SimpleVirtualPatchRule handleLoad(Long id) {
+	protected SimpleVirtualPatchRule handleLoad(String id) {
 		return this.simpleVirtualPatchRuleBC.load(id);
 	}
 		

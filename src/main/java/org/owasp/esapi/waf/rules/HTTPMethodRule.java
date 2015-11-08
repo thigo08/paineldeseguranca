@@ -27,6 +27,8 @@ import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;restrict-method&gt; rules.
@@ -34,39 +36,28 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class HTTPMethodRule extends Rule {
+public class HTTPMethodRule extends RuleWithUrlPath {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
-	@Transient
-	private Pattern allowedMethods;
-	
-	@Transient
-	private Pattern deniedMethods;
-	
-	@Transient
-	private Pattern path;
+	@OneToOne
+	private PatternEntity allowedMethods;
 	
 	@OneToOne
-	private UrlPath allowedMethods1;
-	
-	@OneToOne
-	private UrlPath deniedMethods1;
-	
-	@OneToOne
-	private UrlPath path1;
-	
+	private PatternEntity deniedMethods;
+			
 	public HTTPMethodRule (){
-		allowedMethods1 = new UrlPath();
-		deniedMethods1 = new UrlPath();
-		path1 = new UrlPath();
+		super();
+		setAllowedMethods(new PatternEntity());
+		setDeniedMethods(new PatternEntity());		
 	}
 
 	public HTTPMethodRule(String id, Pattern allowedMethods, Pattern deniedMethods, Pattern path) {
-		this.allowedMethods = allowedMethods;
-		this.deniedMethods = deniedMethods;
-		this.path = path;
-		//setId(id);
+		super (path);
+		this.setAllowedMethods(new PatternEntity(allowedMethods));
+		this.setDeniedMethods(new PatternEntity(deniedMethods));		
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,
@@ -79,19 +70,19 @@ public class HTTPMethodRule extends Rule {
 		String uri = request.getRequestURI();
 		String method = request.getMethod();
 
-		if ( path == null || path.matcher(uri).matches() ) {
+		if ( getPath() == null || getPath().matches(uri) ) {
 			/*
 			 *	Order allow, deny.
 			 */
 
-			if ( allowedMethods != null && allowedMethods.matcher(method).matches() ) {
+			if ( getAllowedMethods() != null && getAllowedMethods().matches(method) ) {
 				return new DoNothingAction();
-			} else if ( allowedMethods != null ) {
+			} else if ( getAllowedMethods() != null ) {
 				log(request,"Disallowed HTTP method '" + request.getMethod() + "' found for URL: " + request.getRequestURL());
 				return new DefaultAction();
 			}
 
-			if ( deniedMethods != null && deniedMethods.matcher(method).matches() ) {
+			if ( getDeniedMethods() != null && getDeniedMethods().matches(method) ) {
 				log(request,"Disallowed HTTP method '" + request.getMethod() + "' found for URL: " + request.getRequestURL());
 				return new DefaultAction();
 			}
@@ -101,28 +92,19 @@ public class HTTPMethodRule extends Rule {
 		return new DoNothingAction();
 	}
 
-	public UrlPath getAllowedMethods1() {
-		return allowedMethods1;
+	public PatternEntity getAllowedMethods() {
+		return allowedMethods;
 	}
 
-	public void setAllowedMethods1(UrlPath allowedMethods1) {
-		this.allowedMethods1 = allowedMethods1;
+	public void setAllowedMethods(PatternEntity allowedMethods) {
+		this.allowedMethods = allowedMethods;
 	}
 
-	public UrlPath getDeniedMethods1() {
-		return deniedMethods1;
+	public PatternEntity getDeniedMethods() {
+		return deniedMethods;
 	}
 
-	public void setDeniedMethods1(UrlPath deniedMethods1) {
-		this.deniedMethods1 = deniedMethods1;
+	public void setDeniedMethods(PatternEntity deniedMethods) {
+		this.deniedMethods = deniedMethods;
 	}
-
-	public UrlPath getPath1() {
-		return path1;
-	}
-
-	public void setPath1(UrlPath path1) {
-		this.path1 = path1;
-	}
-	
 }

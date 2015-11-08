@@ -32,6 +32,7 @@ package org.owasp.esapi.waf.view;
 
 import javax.inject.Inject;
 
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.ReplaceContentRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.ReplaceContentRule;
@@ -43,17 +44,18 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./replacecontentrule_list.jsf")
-public class ReplaceContentRuleEditMB extends AbstractEditPageBean<ReplaceContentRule, Long> {
+public class ReplaceContentRuleEditMB extends AbstractEditPageBean<ReplaceContentRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private ReplaceContentRuleBC replaceContentRuleBC;
 	
 	@Inject
 	private UrlPathBC urlPathBC;
+	
+	@Inject
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,9 +69,9 @@ public class ReplaceContentRuleEditMB extends AbstractEditPageBean<ReplaceConten
 	public String insert() {
 		ReplaceContentRule replaceContentRule = getBean();
 		
-		urlPathBC.insert(replaceContentRule.getPattern1());
-		urlPathBC.insert(replaceContentRule.getContentType1());
-		urlPathBC.insert(replaceContentRule.getPath1());
+		patternEntityBC.insert(replaceContentRule.getPattern());
+		patternEntityBC.insert(replaceContentRule.getContentType());
+		urlPathBC.insert(replaceContentRule.getPath());
 		
 		this.replaceContentRuleBC.insert(getBean());
 		return getPreviousView();
@@ -82,25 +84,9 @@ public class ReplaceContentRuleEditMB extends AbstractEditPageBean<ReplaceConten
 		this.replaceContentRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected ReplaceContentRule handleLoad(Long id) {
+	protected ReplaceContentRule handleLoad(String id) {
 		return this.replaceContentRuleBC.load(id);
 	}
 		

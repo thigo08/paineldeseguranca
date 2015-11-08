@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import org.owasp.esapi.waf.business.EnforceHTTPSRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.EnforceHTTPSRule;
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -46,7 +46,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./enforceHTTPSrule_list.jsf")
-public class EnforceHTTPSRuleEditMB extends AbstractEditPageBean<EnforceHTTPSRule, Long> {
+public class EnforceHTTPSRuleEditMB extends AbstractEditPageBean<EnforceHTTPSRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -101,7 +101,7 @@ public class EnforceHTTPSRuleEditMB extends AbstractEditPageBean<EnforceHTTPSRul
 	}
 
 	@Override
-	protected EnforceHTTPSRule handleLoad(Long id) {
+	protected EnforceHTTPSRule handleLoad(String id) {
 		return this.enforceHTTPSRuleBC.load(id);
 	}
 		

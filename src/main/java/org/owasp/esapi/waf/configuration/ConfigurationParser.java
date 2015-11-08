@@ -145,11 +145,14 @@ public class ConfigurationParser {
 				String mode = settingsRoot.getFirstChildElement("mode").getValue();
 				
 				if ( "block".equals(mode.toLowerCase() ) ) {
-					AppGuardianConfiguration.DEFAULT_FAIL_ACTION = AppGuardianConfiguration.BLOCK;
+					//AppGuardianConfiguration.DEFAULT_FAIL_ACTION = AppGuardianConfiguration.BLOCK;
+					config.setDefaultFailAction(AppGuardianConfiguration.BLOCK);
 				} else if ( "redirect".equals(mode.toLowerCase() ) ){
-					AppGuardianConfiguration.DEFAULT_FAIL_ACTION = AppGuardianConfiguration.REDIRECT;
+					//AppGuardianConfiguration.DEFAULT_FAIL_ACTION = AppGuardianConfiguration.REDIRECT;
+					config.setDefaultFailAction(AppGuardianConfiguration.REDIRECT);
 				} else {
-					AppGuardianConfiguration.DEFAULT_FAIL_ACTION = AppGuardianConfiguration.LOG;
+					//AppGuardianConfiguration.DEFAULT_FAIL_ACTION = AppGuardianConfiguration.LOG;
+					config.setDefaultFailAction(AppGuardianConfiguration.LOG);
 				}
 	
 				Element errorHandlingRoot = settingsRoot.getFirstChildElement("error-handling");

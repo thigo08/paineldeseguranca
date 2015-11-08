@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class PathExtensionRuleBC extends DelegateCrud<PathExtensionRule, Long, PathExtensionRuleDAO> {
+public class PathExtensionRuleBC extends DelegateCrud<PathExtensionRule, String, PathExtensionRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

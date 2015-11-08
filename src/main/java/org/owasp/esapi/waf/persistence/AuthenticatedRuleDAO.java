@@ -36,7 +36,7 @@ import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 
 @PersistenceController
-public class AuthenticatedRuleDAO extends JPACrud<AuthenticatedRule, Long> {
+public class AuthenticatedRuleDAO extends JPACrud<AuthenticatedRule, String> {
 
 	private static final long serialVersionUID = 1L;
 

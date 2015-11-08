@@ -35,21 +35,23 @@ import org.owasp.esapi.waf.persistence.AppGuardianConfigurationDAO;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
+import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @BusinessController
 public class AppGuardianConfigurationBC extends DelegateCrud<AppGuardianConfiguration, Long, AppGuardianConfigurationDAO> {
 
 	private static final long serialVersionUID = 1L;
-
-//	public AppGuardianConfiguration loadSingletonInstance(){
-//		AppGuardianConfiguration config = this.load(0L);
+	
+//TODO: Gerar Exceção caso o método for invocado
+//	public AppGuardianConfiguration insert (AppGuardianConfiguration appGuardianConfiguration){
 //		
-//		if (config == null){
-//			config = new AppGuardianConfiguration();
-//			config.setId(0L);
-//			this.insert(config);
-//		}
-//		
-//		return config;
+//		return null;
 //	}
+
+	@Transactional
+	public AppGuardianConfiguration loadSingletonInstance(){
+		if (this.findAll().size() == 0){									
+			return super.insert(new AppGuardianConfiguration());
+		} else return this.findAll().get(0);
+	}
 }

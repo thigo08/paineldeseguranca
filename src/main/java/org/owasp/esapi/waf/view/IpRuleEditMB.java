@@ -33,6 +33,7 @@ package org.owasp.esapi.waf.view;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.IPRuleBC;
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.IPRule;
 
@@ -43,17 +44,18 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./iprule_list.jsf")
-public class IpRuleEditMB extends AbstractEditPageBean<IPRule, Long> {
+public class IpRuleEditMB extends AbstractEditPageBean<IPRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private IPRuleBC iPRuleBC;
 	
 	@Inject
 	private UrlPathBC urlPathBC;
+	
+	@Inject
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,8 +69,8 @@ public class IpRuleEditMB extends AbstractEditPageBean<IPRule, Long> {
 	public String insert() {
 		IPRule iPRule = getBean();
 		
-		urlPathBC.insert(iPRule.getAllowedIP1());
-		urlPathBC.insert(iPRule.getPath1());
+		patternEntityBC.insert(iPRule.getAllowedIP());
+		urlPathBC.insert(iPRule.getPath());
 		
 		this.iPRuleBC.insert(getBean());
 		return getPreviousView();
@@ -81,25 +83,9 @@ public class IpRuleEditMB extends AbstractEditPageBean<IPRule, Long> {
 		this.iPRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected IPRule handleLoad(Long id) {
+	protected IPRule handleLoad(String id) {
 		return this.iPRuleBC.load(id);
 	}
 		

@@ -15,16 +15,10 @@
  */
 package org.owasp.esapi.waf.rules;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
+import org.owasp.esapi.waf.rules.support.RuleWithPatterns;
 
 /**
  * This is the Rule subclass executed for &lt;add-secure-flag&gt; rules.
@@ -41,6 +37,7 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
 @Entity
 public class AddSecureFlagRule extends RuleWithPatterns {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	public AddSecureFlagRule(){
@@ -48,7 +45,7 @@ public class AddSecureFlagRule extends RuleWithPatterns {
 	}
 
 	public AddSecureFlagRule(String id, List<Pattern> name) {
-		//setId(id);
+		setId(id);
 		super.fillListOfPatternEntity(name);
 	}
 

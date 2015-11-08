@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,6 +28,8 @@ import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.actions.RedirectAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithExceptions;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;enforce-https&gt; rules.
@@ -36,6 +39,7 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
 @Entity
 public class EnforceHTTPSRule extends RuleWithExceptions {
 
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	private String action;
@@ -52,7 +56,7 @@ public class EnforceHTTPSRule extends RuleWithExceptions {
 		super(path);
 		super.fillExceptionsWithListOfObjects(exceptions);
 		this.action = action;
-		//setId(id);
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

@@ -61,35 +61,38 @@
 			<p:dataTable id="list" var="bean" value="#{detectOutboundContentRuleListMB.resultList}">
 				<f:facet name="header">#{messages['detectoutboundcontentrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{detectOutboundContentRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{detectOutboundContentRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
-				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['detectoutboundcontentrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{detectOutboundContentRuleListMB.getNextView()}" actionListener="#{detectOutboundContentRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
-				<p:column sortBy="#{bean.contentType1.url}">
+				<p:column sortBy="#{bean.contentType.regex}">
 					<f:facet name="header">#{messages['detectoutboundcontentrule.label.contentType']}</f:facet>
 					<h:commandLink action="#{detectOutboundContentRuleListMB.getNextView()}" actionListener="#{detectOutboundContentRuleListMB.clear}">
-						<h:outputText value="#{bean.contentType1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.contentType.regex}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.pattern1.url}">
+				<p:column sortBy="#{bean.pattern.regex}">
 					<f:facet name="header">#{messages['detectoutboundcontentrule.label.pattern']}</f:facet>
 					<h:commandLink action="#{detectOutboundContentRuleListMB.getNextView()}" actionListener="#{detectOutboundContentRuleListMB.clear}">
-						<h:outputText value="#{bean.pattern1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.pattern.regex}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.uri1.url}">
+				<p:column sortBy="#{bean.path.url}">
 					<f:facet name="header">#{messages['detectoutboundcontentrule.label.uri']}</f:facet>
 					<h:commandLink action="#{detectOutboundContentRuleListMB.getNextView()}" actionListener="#{detectOutboundContentRuleListMB.clear}">
-						<h:outputText value="#{bean.uri1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.path.url}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

@@ -43,7 +43,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./beanshellrule_list.jsf")
-public class BeanShellRuleEditMB extends AbstractEditPageBean<BeanShellRule, Long> {
+public class BeanShellRuleEditMB extends AbstractEditPageBean<BeanShellRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -80,7 +80,7 @@ public class BeanShellRuleEditMB extends AbstractEditPageBean<BeanShellRule, Lon
 	}
 
 	@Override
-	protected BeanShellRule handleLoad(Long id) {
+	protected BeanShellRule handleLoad(String id) {
 		return this.beanShellRuleBC.load(id);
 	}
 		

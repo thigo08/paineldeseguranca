@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./pathextensionrule_edit.jsf")
 @PreviousView("./pathextensionrule_list.jsf")
-public class PathExtensionRuleListMB extends AbstractListPageBean<PathExtensionRule, Long> {
+public class PathExtensionRuleListMB extends AbstractListPageBean<PathExtensionRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class PathExtensionRuleListMB extends AbstractListPageBean<PathExtensionR
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				pathExtensionRuleBC.delete(id);

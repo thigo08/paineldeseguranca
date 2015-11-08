@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./detectoutboundcontentrule_edit.jsf")
 @PreviousView("./detectoutboundcontentrule_list.jsf")
-public class DetectOutboundContentRuleListMB extends AbstractListPageBean<DetectOutboundContentRule, Long> {
+public class DetectOutboundContentRuleListMB extends AbstractListPageBean<DetectOutboundContentRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class DetectOutboundContentRuleListMB extends AbstractListPageBean<Detect
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				detectOutboundContentRuleBC.delete(id);

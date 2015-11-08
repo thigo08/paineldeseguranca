@@ -61,35 +61,30 @@
 			<p:dataTable id="list" var="bean" value="#{ipRuleListMB.resultList}">
 				<f:facet name="header">#{messages['IPrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{ipRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{ipRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['IPrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{ipRuleListMB.getNextView()}" actionListener="#{ipRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
-				<p:column sortBy="#{bean.allowedIP1.url}">
+				<p:column sortBy="#{bean.allowedIP.regex}">
 					<f:facet name="header">#{messages['IPrule.label.allowedIP']}</f:facet>
 					<h:commandLink action="#{ipRuleListMB.getNextView()}" actionListener="#{ipRuleListMB.clear}">
-						<h:outputText value="#{bean.allowedIP1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.allowedIP.regex}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.exactPath}">
-					<f:facet name="header">#{messages['IPrule.label.exactPath']}</f:facet>
-					<h:commandLink action="#{ipRuleListMB.getNextView()}" actionListener="#{ipRuleListMB.clear}">
-						<h:outputText value="#{bean.exactPath}" />
-						<f:param name="id" value="#{bean.id1}" />
-					</h:commandLink>
-				</p:column>
-				
-				<p:column sortBy="#{bean.path1.url}">
+				<p:column sortBy="#{bean.path.url}">
 					<f:facet name="header">#{messages['IPrule.label.path']}</f:facet>
 					<h:commandLink action="#{ipRuleListMB.getNextView()}" actionListener="#{ipRuleListMB.clear}">
-						<h:outputText value="#{bean.path1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.path.url}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -97,7 +92,7 @@
 					<f:facet name="header">#{messages['IPrule.label.ipHeader']}</f:facet>
 					<h:commandLink action="#{ipRuleListMB.getNextView()}" actionListener="#{ipRuleListMB.clear}">
 						<h:outputText value="#{bean.ipHeader}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

@@ -33,7 +33,7 @@ package org.owasp.esapi.waf.view;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.AliasBC;
-import org.owasp.esapi.waf.rules.Alias;
+import org.owasp.esapi.waf.configuration.Alias;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;

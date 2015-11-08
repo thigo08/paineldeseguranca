@@ -1,19 +1,24 @@
-package org.owasp.esapi.waf.rules;
+package org.owasp.esapi.waf.rules.support;
 
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.owasp.esapi.waf.actions.Action;
-import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.Rule;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class RuleWithUrlPath extends Rule {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@OneToOne
 	@JoinColumn(name = "fk_id_rule") 
 	private UrlPath path;

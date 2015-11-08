@@ -1,4 +1,4 @@
-package org.owasp.esapi.waf.rules;
+package org.owasp.esapi.waf.rules.support;
 
 import java.util.regex.Pattern;
 
@@ -10,6 +10,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
+import org.owasp.esapi.waf.rules.Rule;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -37,8 +39,14 @@ public class PatternEntity {
 	}
 	
 	public PatternEntity (Pattern pattern) {
-		this.setRegex(pattern.toString());
+		this.setRegex(pattern.pattern());
 		this.pattern = pattern;
+	}
+	
+	public Pattern getPattern(){
+		if (pattern == null)
+			pattern = Pattern.compile(getRegex());
+		return pattern;
 	}
 	
 	public Long getId() {
@@ -50,9 +58,8 @@ public class PatternEntity {
 	}
 	
 	public boolean matches (String param){
-		if (pattern == null)
-			pattern = Pattern.compile(getRegex());
-		return pattern.matcher(param).matches();
+		
+		return getPattern().matcher(param).matches();
 	}
 
 	public String getRegex() {
@@ -69,5 +76,9 @@ public class PatternEntity {
 
 	public void setRule(Rule rule) {
 		this.rule = rule;
+	}
+	
+	public String pattern(){
+		return getPattern().pattern();
 	}
 }

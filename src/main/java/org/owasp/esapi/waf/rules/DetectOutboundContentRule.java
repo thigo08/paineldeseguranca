@@ -30,6 +30,8 @@ import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.configuration.AppGuardianConfiguration;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;detect-content&gt; rules.
@@ -37,39 +39,29 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class DetectOutboundContentRule extends Rule {
+public class DetectOutboundContentRule extends RuleWithUrlPath {
 
+	@Transient
 	private static final long serialVersionUID = 1L;
-	
-	@Transient
-	private Pattern contentType;
-	
-	@Transient
-	private Pattern pattern;
-	
-	@Transient
-	private Pattern uri;
+		
+	@OneToOne
+	private PatternEntity contentType;
 	
 	@OneToOne
-	private UrlPath contentType1;
+	private PatternEntity pattern;
 	
-	@OneToOne
-	private UrlPath pattern1;
-	
-	@OneToOne
-	private UrlPath uri1;
 	
 	public DetectOutboundContentRule() {
-		contentType1 = new UrlPath();
-		pattern1 = new UrlPath();
-		uri1 = new UrlPath();		
+		super();
+		this.contentType = new PatternEntity();
+		this.pattern = new PatternEntity();	
 	}
 	
 	public DetectOutboundContentRule(String id, Pattern contentType, Pattern pattern, Pattern uri) {
-		this.contentType = contentType;
-		this.pattern = pattern;
-		this.uri = uri;
-		//setId(id);
+		super(uri);
+		this.setContentType(new PatternEntity(contentType));
+		this.setPattern(new PatternEntity(pattern));
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,
@@ -79,7 +71,7 @@ public class DetectOutboundContentRule extends Rule {
 		/*
 		 * Early fail: if URI doesn't match.
 		 */
-		if ( uri != null && ! uri.matcher(request.getRequestURI()).matches() ) {
+		if ( getPath() != null && ! getPath().matches(request.getRequestURI())) {
 			return new DoNothingAction(); 
 		}
 
@@ -105,7 +97,7 @@ public class DetectOutboundContentRule extends Rule {
 			charEnc = httpResponse.getCharacterEncoding();
 		}
 	
-		if ( contentType.matcher(inboundContentType).matches() ) {
+		if ( contentType.matches(inboundContentType) ) {
 			/*
 			 * Depending on the encoding, search through the bytes
 			 * for the pattern.
@@ -123,7 +115,7 @@ public class DetectOutboundContentRule extends Rule {
 
 				String s = new String(bytes,charEnc);
 
-				if ( pattern.matcher(s).matches() ) {
+				if ( pattern.matches(s) ) {
 
 					log(request,"Content pattern '" + pattern.pattern() + "' was found in response to URL: '" + request.getRequestURL() + "'");
 					return new DefaultAction();
@@ -139,28 +131,20 @@ public class DetectOutboundContentRule extends Rule {
 
 	}
 
-	public UrlPath getContentType1() {
-		return contentType1;
+	public PatternEntity getContentType() {
+		return contentType;
 	}
 
-	public void setContentType1(UrlPath contentType1) {
-		this.contentType1 = contentType1;
+	public void setContentType(PatternEntity contentType) {
+		this.contentType = contentType;
 	}
 
-	public UrlPath getPattern1() {
-		return pattern1;
+	public PatternEntity getPattern() {
+		return pattern;
 	}
 
-	public void setPattern1(UrlPath pattern1) {
-		this.pattern1 = pattern1;
-	}
-
-	public UrlPath getUri1() {
-		return uri1;
-	}
-
-	public void setUri1(UrlPath uri1) {
-		this.uri1 = uri1;
+	public void setPattern(PatternEntity pattern) {
+		this.pattern = pattern;
 	}
 	
 }

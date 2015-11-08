@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class AddSecureFlagRuleBC extends DelegateCrud<AddSecureFlagRule, Long, AddSecureFlagRuleDAO> {
+public class AddSecureFlagRuleBC extends DelegateCrud<AddSecureFlagRule, String, AddSecureFlagRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

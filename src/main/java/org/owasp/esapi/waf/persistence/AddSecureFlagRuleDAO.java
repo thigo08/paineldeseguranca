@@ -6,7 +6,7 @@ import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 
 @PersistenceController
-public class AddSecureFlagRuleDAO extends JPACrud<AddSecureFlagRule, Long> {
+public class AddSecureFlagRuleDAO extends JPACrud<AddSecureFlagRule, String> {
 	
 	private static final long serialVersionUID = 1L;
 	

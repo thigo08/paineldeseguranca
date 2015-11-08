@@ -37,8 +37,7 @@ import javax.inject.Inject;
 import org.owasp.esapi.waf.business.AddHTTPOnlyFlagRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.AddHTTPOnlyFlagRule;
-import org.owasp.esapi.waf.rules.PatternEntity;
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -47,7 +46,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./addHTTPonlyflagrule_list.jsf")
-public class AddHTTPOnlyFlagRuleEditMB extends AbstractEditPageBean<AddHTTPOnlyFlagRule, Long> {
+public class AddHTTPOnlyFlagRuleEditMB extends AbstractEditPageBean<AddHTTPOnlyFlagRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -101,7 +100,7 @@ public class AddHTTPOnlyFlagRuleEditMB extends AbstractEditPageBean<AddHTTPOnlyF
 	}
 
 	@Override
-	protected AddHTTPOnlyFlagRule handleLoad(Long id) {
+	protected AddHTTPOnlyFlagRule handleLoad(String id) {
 		return this.addHTTPOnlyFlagRuleBC.load(id);
 	}
 		

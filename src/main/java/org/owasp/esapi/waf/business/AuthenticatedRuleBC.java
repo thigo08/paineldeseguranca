@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class AuthenticatedRuleBC extends DelegateCrud<AuthenticatedRule, Long, AuthenticatedRuleDAO> {
+public class AuthenticatedRuleBC extends DelegateCrud<AuthenticatedRule, String, AuthenticatedRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -64,9 +64,12 @@
 					<h:selectBooleanCheckbox value="#{aliasListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['alias.label.id']}</f:facet>
-					<h:outputText value="#{bean.id}" />
+					<h:commandLink action="#{aliasListMB.getNextView()}" actionListener="#{aliasListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
 				<p:column sortBy="#{bean.name}">

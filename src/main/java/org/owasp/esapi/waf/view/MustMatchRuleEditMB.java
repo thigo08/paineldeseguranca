@@ -43,11 +43,9 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./mustmatchrule_list.jsf")
-public class MustMatchRuleEditMB extends AbstractEditPageBean<MustMatchRule, Long> {
+public class MustMatchRuleEditMB extends AbstractEditPageBean<MustMatchRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private MustMatchRuleBC mustMatchRuleBC;
@@ -67,7 +65,7 @@ public class MustMatchRuleEditMB extends AbstractEditPageBean<MustMatchRule, Lon
 	public String insert() {
 		MustMatchRule mustMatchRule = getBean();
 		
-		urlPathBC.insert(mustMatchRule.getPath1());
+		urlPathBC.insert(mustMatchRule.getPath());
 		
 		this.mustMatchRuleBC.insert(getBean());
 		return getPreviousView();
@@ -80,25 +78,9 @@ public class MustMatchRuleEditMB extends AbstractEditPageBean<MustMatchRule, Lon
 		this.mustMatchRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected MustMatchRule handleLoad(Long id) {
+	protected MustMatchRule handleLoad(String id) {
 		return this.mustMatchRuleBC.load(id);
 	}
 		

@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class IPRuleBC extends DelegateCrud<IPRule, Long, IPRuleDAO> {
+public class IPRuleBC extends DelegateCrud<IPRule, String, IPRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

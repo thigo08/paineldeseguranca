@@ -91,7 +91,14 @@
 						title="#{messages['enforceHTTPSrule.alt.path']}" required="true">
 					</h:inputText>
 					<p:message for="path" />
-
+					
+				 <p:outputLabel for="action" value="#{messages['enforceHTTPSrule.label.action']}: " />
+       				 <p:selectOneMenu id="action" value="#{enforceHTTPSRuleEditMB.bean.action}" style="width:125px">		            
+			            <f:selectItem itemLabel="REDIRECT" itemValue="redirect" />
+			            <f:selectItem itemLabel="BLOCK" itemValue="block" />
+       				</p:selectOneMenu>
+					<p:message for="action" />	
+					
 				</h:panelGrid>
 				
 				<br />

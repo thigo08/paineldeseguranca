@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class BeanShellRuleBC extends DelegateCrud<BeanShellRule, Long, BeanShellRuleDAO> {
+public class BeanShellRuleBC extends DelegateCrud<BeanShellRule, String, BeanShellRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

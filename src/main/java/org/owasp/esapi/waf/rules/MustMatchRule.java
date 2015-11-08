@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +31,7 @@ import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.configuration.AppGuardianConfiguration;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletRequest;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;must-match&gt; rules.
@@ -39,38 +39,37 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class MustMatchRule extends Rule {
+public class MustMatchRule extends RuleWithUrlPath {
 	
-	private static final long serialVersionUID = 1L;
-
-	private static final String REQUEST_PARAMETERS = "request.parameters.";
-	private static final String REQUEST_HEADERS = "request.headers.";
-	private static final String REQUEST_URI = "request.uri";
-	private static final String REQUEST_URL = "request.url";
-	private static final String SESSION_ATTRIBUTES = "session.";
-
 	@Transient
-	private Pattern path;
-	
+	private static final long serialVersionUID = 1L;
+	@Transient
+	private static final String REQUEST_PARAMETERS = "request.parameters.";
+	@Transient
+	private static final String REQUEST_HEADERS = "request.headers.";
+	@Transient
+	private static final String REQUEST_URI = "request.uri";
+	@Transient
+	private static final String REQUEST_URL = "request.url";
+	@Transient
+	private static final String SESSION_ATTRIBUTES = "session.";
+		
 	private String variable;
 	
 	private int operator;
 	
 	private String value;
 	
-	@OneToOne
-	private UrlPath path1;
-	
 	public MustMatchRule(){
-		path1 = new UrlPath();
+		super();
 	}
 
 	public MustMatchRule(String id, Pattern path, String variable, int operator, String value) {
-		this.path = path;
+		super(path);
 		this.variable = variable;
 		this.operator = operator;
 		this.value = value;
-		//setId(id);
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest req,
@@ -80,7 +79,7 @@ public class MustMatchRule extends Rule {
 		InterceptingHTTPServletRequest request = (InterceptingHTTPServletRequest)req;
 
 		String uri = request.getRequestURI();
-		if ( ! path.matcher(uri).matches() ) {
+		if ( ! getPath().matches(uri) ) {
 
 			return new DoNothingAction();
 
@@ -373,13 +372,4 @@ public class MustMatchRule extends Rule {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
-	public UrlPath getPath1() {
-		return path1;
-	}
-
-	public void setPath1(UrlPath path1) {
-		this.path1 = path1;
-	}
-
 }

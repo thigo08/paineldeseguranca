@@ -15,16 +15,11 @@
  */
 package org.owasp.esapi.waf.rules;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,6 +28,8 @@ import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithExceptions;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;authentication-rules&gt; rules.
@@ -42,6 +39,7 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
 @Entity
 public class AuthenticatedRule extends RuleWithExceptions {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	private String sessionAttribute;
@@ -53,10 +51,8 @@ public class AuthenticatedRule extends RuleWithExceptions {
 	public AuthenticatedRule(String id, String sessionAttribute, Pattern path, List<Object> exceptions) {
 		super (path);
 		this.sessionAttribute = sessionAttribute;
-		
 		super.fillExceptionsWithListOfObjects(exceptions);
-		
-		//setId(id);
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,

@@ -47,38 +47,25 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./restrictuseragentrule_edit.jsf")
 @PreviousView("./restrictuseragentrule_list.jsf")
-public class RestrictUserAgentRuleListMB extends AbstractListPageBean<RestrictUserAgentRule, Long> {
+public class RestrictUserAgentRuleListMB extends AbstractListPageBean<RestrictUserAgentRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
 	
 	@Inject
 	private RestrictUserAgentRuleBC restrictUserAgentRuleBC;
-	
-//	@Inject
-//	private ControleExcecoes controleExcecoes;
-//
-//   @PostConstruct
-//	private final void init() {
-//    	for (int i=0;i<10;i++){
-//    		System.out.println(i);
-//    		if (i == 9) controleExcecoes.chamaExcecao();
-//    	}
-//		
-//	}
 
 	@Override
 	protected List<RestrictUserAgentRule> handleResultList() {
-		//throw new TesteException();
 		return this.restrictUserAgentRuleBC.findAll();
 	}
 
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				restrictUserAgentRuleBC.delete(id);
@@ -87,7 +74,4 @@ public class RestrictUserAgentRuleListMB extends AbstractListPageBean<RestrictUs
 		}
 		return getPreviousView();
 	}
-
-	
-
 }

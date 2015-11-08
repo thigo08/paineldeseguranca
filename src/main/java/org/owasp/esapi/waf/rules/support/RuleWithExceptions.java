@@ -1,4 +1,4 @@
-package org.owasp.esapi.waf.rules;
+package org.owasp.esapi.waf.rules.support;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,13 @@ import java.util.regex.Pattern;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class RuleWithExceptions extends RuleWithUrlPath {
 	
 	/**

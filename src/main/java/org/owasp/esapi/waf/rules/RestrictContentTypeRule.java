@@ -18,7 +18,6 @@ package org.owasp.esapi.waf.rules;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +26,7 @@ import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithAllowDeny;
 
 /**
  * This is the Rule subclass executed for &lt;dynamic-insertion&gt; rules.
@@ -34,31 +34,18 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class RestrictContentTypeRule extends Rule {
+public class RestrictContentTypeRule extends RuleWithAllowDeny {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
-
-	@Transient
-	private Pattern allow;
-	
-	@Transient
-	private Pattern deny;
-	
-	@OneToOne
-	private UrlPath allow1;
-	
-	@OneToOne
-	private UrlPath deny1;
 	
 	public RestrictContentTypeRule(){
-		allow1 = new UrlPath();
-		deny1 = new UrlPath();
+		super();
 	}
 
 	public RestrictContentTypeRule(String id, Pattern allow, Pattern deny) {
-		this.allow = allow;
-		this.deny = deny;
-		//setId(id);
+		super(allow, deny);
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,
@@ -70,37 +57,20 @@ public class RestrictContentTypeRule extends Rule {
 			return new DoNothingAction();
 		}
 
-		if ( allow != null ) {
-			if ( allow.matcher(request.getContentType()).matches() ) {
+		if ( getAllow() != null ) {
+			if ( getAllow().matches(request.getContentType()) ) {
 				return new DoNothingAction();
 			}
-			log(request, "Disallowed content type based on allow pattern '" + allow.pattern() + "' found on URI '" + request.getRequestURI() + "' (value was '" + request.getContentType() +"')");
-		} else if ( deny != null ) {
-			if ( ! deny.matcher(request.getContentType()).matches() ) {
+			log(request, "Disallowed content type based on allow pattern '" + getAllow().pattern() + "' found on URI '" + request.getRequestURI() + "' (value was '" + request.getContentType() +"')");
+		} else if ( getDeny() != null ) {
+			if ( ! getDeny().matches(request.getContentType()) ) {
 				return new DoNothingAction();
 			}
-			log(request, "Disallowed content type based on deny pattern '" + deny.pattern() + "' found on URI '" + request.getRequestURI() + "' (value was '" + request.getContentType() + ")'");
+			log(request, "Disallowed content type based on deny pattern '" + getDeny().pattern() + "' found on URI '" + request.getRequestURI() + "' (value was '" + request.getContentType() + ")'");
 		}
 
 
 		return new DefaultAction();
 
 	}
-
-	public UrlPath getAllow1() {
-		return allow1;
-	}
-
-	public void setAllow1(UrlPath allow1) {
-		this.allow1 = allow1;
-	}
-
-	public UrlPath getDeny1() {
-		return deny1;
-	}
-
-	public void setDeny1(UrlPath deny1) {
-		this.deny1 = deny1;
-	}
-
 }

@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import org.owasp.esapi.waf.business.AddHeaderRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.AddHeaderRule;
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -46,7 +46,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./addheaderrule_list.jsf")
-public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, Long> {
+public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -101,7 +101,7 @@ public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, Lon
 	}
 
 	@Override
-	protected AddHeaderRule handleLoad(Long id) {
+	protected AddHeaderRule handleLoad(String id) {
 		return this.addHeaderRuleBC.load(id);
 	}
 		

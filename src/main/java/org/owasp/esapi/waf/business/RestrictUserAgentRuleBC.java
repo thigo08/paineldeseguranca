@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class RestrictUserAgentRuleBC extends DelegateCrud<RestrictUserAgentRule, Long, RestrictUserAgentRuleDAO> {
+public class RestrictUserAgentRuleBC extends DelegateCrud<RestrictUserAgentRule, String, RestrictUserAgentRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -61,19 +61,22 @@
 			<p:dataTable id="list" var="bean" value="#{simpleVirtualPatchRuleListMB.resultList}">
 				<f:facet name="header">#{messages['simplevirtualpatchrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{simpleVirtualPatchRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{simpleVirtualPatchRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['simplevirtualpatchrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{simpleVirtualPatchRuleListMB.getNextView()}" actionListener="#{simpleVirtualPatchRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
-				<p:column sortBy="#{bean.path1.url}">
+				<p:column sortBy="#{bean.path.url}">
 					<f:facet name="header">#{messages['simplevirtualpatchrule.label.path']}</f:facet>
 					<h:commandLink action="#{simpleVirtualPatchRuleListMB.getNextView()}" actionListener="#{simpleVirtualPatchRuleListMB.clear}">
-						<h:outputText value="#{bean.path1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.path.url}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -81,15 +84,15 @@
 					<f:facet name="header">#{messages['simplevirtualpatchrule.label.variable']}</f:facet>
 					<h:commandLink action="#{simpleVirtualPatchRuleListMB.getNextView()}" actionListener="#{simpleVirtualPatchRuleListMB.clear}">
 						<h:outputText value="#{bean.variable}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.valid1.url}">
+				<p:column sortBy="#{bean.valid.regex}">
 					<f:facet name="header">#{messages['simplevirtualpatchrule.label.valid']}</f:facet>
 					<h:commandLink action="#{simpleVirtualPatchRuleListMB.getNextView()}" actionListener="#{simpleVirtualPatchRuleListMB.clear}">
-						<h:outputText value="#{bean.valid1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.valid.regex}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -97,7 +100,7 @@
 					<f:facet name="header">#{messages['simplevirtualpatchrule.label.message']}</f:facet>
 					<h:commandLink action="#{simpleVirtualPatchRuleListMB.getNextView()}" actionListener="#{simpleVirtualPatchRuleListMB.clear}">
 						<h:outputText value="#{bean.message}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

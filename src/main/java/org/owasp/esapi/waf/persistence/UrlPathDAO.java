@@ -1,6 +1,6 @@
 package org.owasp.esapi.waf.persistence;
 
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;

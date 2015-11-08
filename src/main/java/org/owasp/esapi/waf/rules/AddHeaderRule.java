@@ -19,14 +19,15 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithExceptions;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;add-header&gt; rules.
@@ -36,6 +37,7 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
 @Entity
 public class AddHeaderRule extends RuleWithExceptions {
 
+	@Transient
 	private static final long serialVersionUID = 1L;
 		
 	private String header;
@@ -47,7 +49,7 @@ public class AddHeaderRule extends RuleWithExceptions {
 
 	public AddHeaderRule(String id, String header, String value, Pattern path, List<Object> exceptions) {
 		super(path);
-		//setId(id);
+		setId(id);
 		this.header = header;
 		this.value = value;		
 		super.fillExceptionsWithListOfObjects(exceptions);

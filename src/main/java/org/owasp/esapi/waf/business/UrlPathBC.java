@@ -2,7 +2,7 @@ package org.owasp.esapi.waf.business;
 
 
 import org.owasp.esapi.waf.persistence.UrlPathDAO;
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;

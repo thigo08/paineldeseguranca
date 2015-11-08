@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class GeneralAttackSignatureRuleBC extends DelegateCrud<GeneralAttackSignatureRule, Long, GeneralAttackSignatureRuleDAO> {
+public class GeneralAttackSignatureRuleBC extends DelegateCrud<GeneralAttackSignatureRule, String, GeneralAttackSignatureRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

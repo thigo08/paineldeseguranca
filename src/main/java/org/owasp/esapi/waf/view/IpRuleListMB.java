@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./iprule_edit.jsf")
 @PreviousView("./iprule_list.jsf")
-public class IpRuleListMB extends AbstractListPageBean<IPRule, Long> {
+public class IpRuleListMB extends AbstractListPageBean<IPRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class IpRuleListMB extends AbstractListPageBean<IPRule, Long> {
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				iPRuleBC.delete(id);

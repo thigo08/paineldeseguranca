@@ -27,6 +27,8 @@ import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;detect-source-ip&gt; rules.
@@ -34,46 +36,31 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class IPRule extends Rule {
+public class IPRule extends RuleWithUrlPath {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
-	@Transient
-	private Pattern allowedIP;
-	
-	private String exactPath;
-	
-	@Transient
-	private Pattern path;
-	
-	private boolean useExactPath = false;
-	
+	@OneToOne
+	private PatternEntity allowedIP;
+			
 	private String ipHeader;
-	
-	@OneToOne
-	private UrlPath allowedIP1;
-	
-	@OneToOne
-	private UrlPath path1;
-	
+			
 	public IPRule(){
-		allowedIP1 = new UrlPath();
-		path1 = new UrlPath();
+		super();
+		setAllowedIP(new PatternEntity());
 	}
 
 	public IPRule(String id, Pattern allowedIP, Pattern path, String ipHeader) {
-		this.allowedIP = allowedIP;
-		this.path = path;
-		this.useExactPath = false;
+		super (path);
+		this.setAllowedIP(new PatternEntity(allowedIP));		
 		this.ipHeader = ipHeader;
-		//setId(id);
+		setId(id);
 	}
 
 	public IPRule(String id, Pattern allowedIP, String exactPath) {
-		this.path = null;
-		this.exactPath = exactPath;
-		this.useExactPath = true;
-		//setId(id);
+		super(exactPath);				
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,
@@ -82,8 +69,7 @@ public class IPRule extends Rule {
 
 		String uri = request.getRequestURI();
 
-		if ( (!useExactPath && path.matcher(uri).matches()) ||
-			 ( useExactPath && exactPath.equals(uri)) ) {
+		if ( getPath().matches(uri) ) {
 			
 			String sourceIP = request.getRemoteAddr() + "";
 			
@@ -91,29 +77,13 @@ public class IPRule extends Rule {
 				sourceIP = request.getHeader(ipHeader);
 			}
 			
-			if ( ! allowedIP.matcher(sourceIP).matches() ) {
+			if ( ! getAllowedIP().matches(sourceIP) ) {
 				log(request, "IP not allowed to access URI '" + uri + "'");
 				return new DefaultAction();
 			}
 		}
 
 		return new DoNothingAction();
-	}
-
-	public String getExactPath() {
-		return exactPath;
-	}
-
-	public void setExactPath(String exactPath) {
-		this.exactPath = exactPath;
-	}
-
-	public boolean isUseExactPath() {
-		return useExactPath;
-	}
-
-	public void setUseExactPath(boolean useExactPath) {
-		this.useExactPath = useExactPath;
 	}
 
 	public String getIpHeader() {
@@ -124,20 +94,11 @@ public class IPRule extends Rule {
 		this.ipHeader = ipHeader;
 	}
 
-	public UrlPath getAllowedIP1() {
-		return allowedIP1;
+	public PatternEntity getAllowedIP() {
+		return allowedIP;
 	}
 
-	public void setAllowedIP1(UrlPath allowedIP1) {
-		this.allowedIP1 = allowedIP1;
+	public void setAllowedIP(PatternEntity allowedIP) {
+		this.allowedIP = allowedIP;
 	}
-
-	public UrlPath getPath1() {
-		return path1;
-	}
-
-	public void setPath1(UrlPath path1) {
-		this.path1 = path1;
-	}
-	
 }

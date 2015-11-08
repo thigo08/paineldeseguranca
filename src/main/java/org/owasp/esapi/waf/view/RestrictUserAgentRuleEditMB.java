@@ -32,8 +32,8 @@ package org.owasp.esapi.waf.view;
 
 import javax.inject.Inject;
 
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.RestrictUserAgentRuleBC;
-import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.RestrictUserAgentRule;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
@@ -43,17 +43,15 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./restrictuseragentrule_list.jsf")
-public class RestrictUserAgentRuleEditMB extends AbstractEditPageBean<RestrictUserAgentRule, Long> {
+public class RestrictUserAgentRuleEditMB extends AbstractEditPageBean<RestrictUserAgentRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private RestrictUserAgentRuleBC restrictUserAgentRuleBC;
 	
 	@Inject
-	private UrlPathBC urlPathBC;
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,8 +65,8 @@ public class RestrictUserAgentRuleEditMB extends AbstractEditPageBean<RestrictUs
 	public String insert() {
 		RestrictUserAgentRule restrictUserAgentRule = getBean();
 		
-		urlPathBC.insert(restrictUserAgentRule.getAllow1());
-		urlPathBC.insert(restrictUserAgentRule.getDeny1());
+		patternEntityBC.insert(restrictUserAgentRule.getAllow());
+		patternEntityBC.insert(restrictUserAgentRule.getDeny());
 		
 		this.restrictUserAgentRuleBC.insert(getBean());
 		return getPreviousView();
@@ -81,25 +79,9 @@ public class RestrictUserAgentRuleEditMB extends AbstractEditPageBean<RestrictUs
 		this.restrictUserAgentRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected RestrictUserAgentRule handleLoad(Long id) {
+	protected RestrictUserAgentRule handleLoad(String id) {
 		return this.restrictUserAgentRuleBC.load(id);
 	}
 		

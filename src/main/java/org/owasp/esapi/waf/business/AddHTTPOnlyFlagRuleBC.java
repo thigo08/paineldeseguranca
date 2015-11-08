@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class AddHTTPOnlyFlagRuleBC extends DelegateCrud<AddHTTPOnlyFlagRule, Long, AddHTTPOnlyFlagRuleDAO> {
+public class AddHTTPOnlyFlagRuleBC extends DelegateCrud<AddHTTPOnlyFlagRule, String, AddHTTPOnlyFlagRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

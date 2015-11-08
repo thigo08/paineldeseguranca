@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import org.owasp.esapi.waf.business.AuthenticatedRuleBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.AuthenticatedRule;
-import org.owasp.esapi.waf.rules.UrlPath;
+import org.owasp.esapi.waf.rules.support.UrlPath;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -46,7 +46,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./authenticatedrule_list.jsf")
-public class AuthenticatedRuleEditMB extends AbstractEditPageBean<AuthenticatedRule, Long> {
+public class AuthenticatedRuleEditMB extends AbstractEditPageBean<AuthenticatedRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -101,7 +101,7 @@ public class AuthenticatedRuleEditMB extends AbstractEditPageBean<AuthenticatedR
 	}
 
 	@Override
-	protected AuthenticatedRule handleLoad(Long id) {
+	protected AuthenticatedRule handleLoad(String id) {
 		return this.authenticatedRuleBC.load(id);
 	}
 		

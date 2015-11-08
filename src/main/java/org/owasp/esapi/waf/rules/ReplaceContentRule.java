@@ -30,6 +30,8 @@ import org.owasp.esapi.Logger;
 import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;dynamic-insertion&gt; rules.
@@ -37,42 +39,31 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class ReplaceContentRule extends Rule {
+public class ReplaceContentRule extends RuleWithUrlPath {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
-	@Transient
-	private Pattern pattern;
+	@OneToOne
+	private PatternEntity pattern;
 	
 	private String replacement;
 	
-	@Transient
-	private Pattern contentType;
-	
-	@Transient
-	private Pattern path;
-	
 	@OneToOne
-	private UrlPath pattern1;
-	
-	@OneToOne
-	private UrlPath contentType1;
-	
-	@OneToOne
-	private UrlPath path1;
+	private PatternEntity contentType;
 	
 	public ReplaceContentRule(){
-		pattern1 = new UrlPath();
-		contentType1 = new UrlPath();
-		path1 = new UrlPath();
+		super();
+		pattern = new PatternEntity();
+		contentType = new PatternEntity();
 	}
 	
 	public ReplaceContentRule(String id, Pattern pattern, String replacement, Pattern contentType, Pattern path) {
-		this.pattern = pattern;
+		super(path);
+		this.pattern = new PatternEntity(pattern);
 		this.replacement = replacement;
-		this.path = path;
-		this.contentType = contentType;
-		//setId(id);
+		this.contentType = new PatternEntity(contentType);
+		setId(id);
 	}
 
 	/*
@@ -87,7 +78,7 @@ public class ReplaceContentRule extends Rule {
 		 * First early fail: if the URI doesn't match the paths we're interested in.
 		 */
 		String uri = request.getRequestURI();
-		if ( path != null && ! path.matcher(uri).matches() ) {
+		if ( getPath() != null && ! getPath().matches(uri) ) {
 			return new DoNothingAction();
 		}
 		
@@ -96,7 +87,7 @@ public class ReplaceContentRule extends Rule {
 		 */
 
 		if ( contentType != null ) {
-			if ( response.getContentType() != null && ! contentType.matcher(response.getContentType()).matches() ) {
+			if ( response.getContentType() != null && ! contentType.matches(response.getContentType()) ) {
 				return new DoNothingAction();
 			}
 		}
@@ -115,7 +106,7 @@ public class ReplaceContentRule extends Rule {
 
 			String s = new String(bytes,response.getCharacterEncoding());
 
-			Matcher m = pattern.matcher(s);
+			Matcher m = pattern.getPattern().matcher(s);
 			String canary = m.replaceAll(replacement);
 			
 			try {
@@ -136,6 +127,14 @@ public class ReplaceContentRule extends Rule {
 		return new DoNothingAction();
 	}
 
+	public PatternEntity getPattern() {
+		return pattern;
+	}
+
+	public void setPattern(PatternEntity pattern) {
+		this.pattern = pattern;
+	}
+
 	public String getReplacement() {
 		return replacement;
 	}
@@ -144,28 +143,12 @@ public class ReplaceContentRule extends Rule {
 		this.replacement = replacement;
 	}
 
-	public UrlPath getPattern1() {
-		return pattern1;
+	public PatternEntity getContentType() {
+		return contentType;
 	}
 
-	public void setPattern1(UrlPath pattern1) {
-		this.pattern1 = pattern1;
-	}
-
-	public UrlPath getContentType1() {
-		return contentType1;
-	}
-
-	public void setContentType1(UrlPath contentType1) {
-		this.contentType1 = contentType1;
-	}
-
-	public UrlPath getPath1() {
-		return path1;
-	}
-
-	public void setPath1(UrlPath path1) {
-		this.path1 = path1;
+	public void setContentType(PatternEntity contentType) {
+		this.contentType = contentType;
 	}
 
 }

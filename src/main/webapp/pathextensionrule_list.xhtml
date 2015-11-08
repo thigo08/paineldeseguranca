@@ -61,27 +61,30 @@
 			<p:dataTable id="list" var="bean" value="#{pathExtensionRuleListMB.resultList}">
 				<f:facet name="header">#{messages['pathextensionrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{pathExtensionRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{pathExtensionRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['pathextensionrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{pathExtensionRuleListMB.getNextView()}" actionListener="#{pathExtensionRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
-				<p:column sortBy="#{bean.allow1.url}">
+				<p:column sortBy="#{bean.allow.regex}">
 					<f:facet name="header">#{messages['pathextensionrule.label.allow']}</f:facet>
 					<h:commandLink action="#{pathExtensionRuleListMB.getNextView()}" actionListener="#{pathExtensionRuleListMB.clear}">
-						<h:outputText value="#{bean.allow1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.allow.regex}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
-				<p:column sortBy="#{bean.deny1.url}">
+				<p:column sortBy="#{bean.deny.regex}">
 					<f:facet name="header">#{messages['pathextensionrule.label.deny']}</f:facet>
 					<h:commandLink action="#{pathExtensionRuleListMB.getNextView()}" actionListener="#{pathExtensionRuleListMB.clear}">
-						<h:outputText value="#{bean.deny1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.deny.regex}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

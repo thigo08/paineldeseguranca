@@ -32,8 +32,8 @@ package org.owasp.esapi.waf.view;
 
 import javax.inject.Inject;
 
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.RestrictContentTypeRuleBC;
-import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.RestrictContentTypeRule;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
@@ -43,17 +43,15 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./restrictcontenttyperule_list.jsf")
-public class RestrictContentTypeRuleEditMB extends AbstractEditPageBean<RestrictContentTypeRule, Long> {
+public class RestrictContentTypeRuleEditMB extends AbstractEditPageBean<RestrictContentTypeRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private RestrictContentTypeRuleBC restrictContentTypeRuleBC;
 	
 	@Inject
-	private UrlPathBC urlPathBC;
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,8 +65,8 @@ public class RestrictContentTypeRuleEditMB extends AbstractEditPageBean<Restrict
 	public String insert() {
 		RestrictContentTypeRule restrictContentTypeRule = getBean();
 		
-		urlPathBC.insert(restrictContentTypeRule.getAllow1());
-		urlPathBC.insert(restrictContentTypeRule.getDeny1());
+		patternEntityBC.insert(restrictContentTypeRule.getAllow());
+		patternEntityBC.insert(restrictContentTypeRule.getDeny());
 		
 		this.restrictContentTypeRuleBC.insert(getBean());
 		return getPreviousView();
@@ -81,25 +79,9 @@ public class RestrictContentTypeRuleEditMB extends AbstractEditPageBean<Restrict
 		this.restrictContentTypeRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected RestrictContentTypeRule handleLoad(Long id) {
+	protected RestrictContentTypeRule handleLoad(String id) {
 		return this.restrictContentTypeRuleBC.load(id);
 	}
 		

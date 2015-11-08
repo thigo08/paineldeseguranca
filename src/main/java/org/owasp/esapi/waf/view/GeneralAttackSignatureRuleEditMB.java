@@ -33,7 +33,7 @@ package org.owasp.esapi.waf.view;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.GeneralAttackSignatureRuleBC;
-import org.owasp.esapi.waf.business.UrlPathBC;
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.rules.GeneralAttackSignatureRule;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
@@ -43,17 +43,15 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./generalattacksignaturerule_list.jsf")
-public class GeneralAttackSignatureRuleEditMB extends AbstractEditPageBean<GeneralAttackSignatureRule, Long> {
+public class GeneralAttackSignatureRuleEditMB extends AbstractEditPageBean<GeneralAttackSignatureRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
 	
 	@Inject
 	private GeneralAttackSignatureRuleBC generalAttackSignatureRuleBC;
 	
 	@Inject
-	private UrlPathBC urlPathBC;
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,7 +65,7 @@ public class GeneralAttackSignatureRuleEditMB extends AbstractEditPageBean<Gener
 	public String insert() {
 		GeneralAttackSignatureRule generalAttackSignatureRule = getBean();
 		
-		urlPathBC.insert(generalAttackSignatureRule.getSignature1());
+		patternEntityBC.insert(generalAttackSignatureRule.getSignature());
 		
 		this.generalAttackSignatureRuleBC.insert(getBean());
 		return getPreviousView();
@@ -80,25 +78,9 @@ public class GeneralAttackSignatureRuleEditMB extends AbstractEditPageBean<Gener
 		this.generalAttackSignatureRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected GeneralAttackSignatureRule handleLoad(Long id) {
+	protected GeneralAttackSignatureRule handleLoad(String id) {
 		return this.generalAttackSignatureRuleBC.load(id);
 	}
 		

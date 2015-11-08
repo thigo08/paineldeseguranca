@@ -30,8 +30,8 @@
  */
 package org.owasp.esapi.waf.business;
 
+import org.owasp.esapi.waf.configuration.Alias;
 import org.owasp.esapi.waf.persistence.AliasDAO;
-import org.owasp.esapi.waf.rules.Alias;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;

@@ -33,6 +33,7 @@ package org.owasp.esapi.waf.view;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.HTTPMethodRuleBC;
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.HTTPMethodRule;
 
@@ -43,17 +44,18 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./httpmethodrule_list.jsf")
-public class HttpMethodRuleEditMB extends AbstractEditPageBean<HTTPMethodRule, Long> {
+public class HttpMethodRuleEditMB extends AbstractEditPageBean<HTTPMethodRule, String> {
 
 	private static final long serialVersionUID = 1L;
-	
-	//private DataModel<UrlPath> pathexceptions;
-	
+			
 	@Inject
 	private HTTPMethodRuleBC hTTPMethodRuleBC;
 	
 	@Inject
 	private UrlPathBC urlPathBC;
+	
+	@Inject
+	private PatternEntityBC patternEntityBC;
 	
 	@Override
 	@Transactional
@@ -67,14 +69,13 @@ public class HttpMethodRuleEditMB extends AbstractEditPageBean<HTTPMethodRule, L
 	public String insert() {
 		HTTPMethodRule hTTPMethodRule = getBean();
 		
-		urlPathBC.insert(hTTPMethodRule.getAllowedMethods1());
-		urlPathBC.insert(hTTPMethodRule.getDeniedMethods1());
-		urlPathBC.insert(hTTPMethodRule.getPath1());
+		patternEntityBC.insert(hTTPMethodRule.getAllowedMethods());
+		patternEntityBC.insert(hTTPMethodRule.getDeniedMethods());
+		urlPathBC.insert(hTTPMethodRule.getPath());
 		
 		this.hTTPMethodRuleBC.insert(getBean());
 		return getPreviousView();
-	}
-	
+	}	
 	
 	@Override
 	@Transactional
@@ -82,25 +83,9 @@ public class HttpMethodRuleEditMB extends AbstractEditPageBean<HTTPMethodRule, L
 		this.hTTPMethodRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected HTTPMethodRule handleLoad(Long id) {
+	protected HTTPMethodRule handleLoad(String id) {
 		return this.hTTPMethodRuleBC.load(id);
 	}
 		

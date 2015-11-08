@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./authenticatedrule_edit.jsf")
 @PreviousView("./authenticatedrule_list.jsf")
-public class AuthenticatedRuleListMB extends AbstractListPageBean<AuthenticatedRule, Long> {
+public class AuthenticatedRuleListMB extends AbstractListPageBean<AuthenticatedRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class AuthenticatedRuleListMB extends AbstractListPageBean<AuthenticatedR
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				authenticatedRuleBC.delete(id);

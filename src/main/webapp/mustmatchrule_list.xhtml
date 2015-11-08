@@ -61,19 +61,22 @@
 			<p:dataTable id="list" var="bean" value="#{mustMatchRuleListMB.resultList}">
 				<f:facet name="header">#{messages['mustmatchrule.list.table.title']}</f:facet>
 				<p:column style="width:5%;">
-					<h:selectBooleanCheckbox value="#{mustMatchRuleListMB.selection[bean.id1]}"></h:selectBooleanCheckbox>
+					<h:selectBooleanCheckbox value="#{mustMatchRuleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
-				<p:column style="width:5%;" sortBy="#{bean.id1}">
+				<p:column sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['mustmatchrule.label.id']}</f:facet>
-					<h:outputText value="#{bean.id1}" />
+					<h:commandLink action="#{mustMatchRuleListMB.getNextView()}" actionListener="#{mustMatchRuleListMB.clear}">
+						<h:outputText value="#{bean.id}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 						
-				<p:column sortBy="#{bean.path1.url}">
+				<p:column sortBy="#{bean.path.url}">
 					<f:facet name="header">#{messages['mustmatchrule.label.path']}</f:facet>
 					<h:commandLink action="#{mustMatchRuleListMB.getNextView()}" actionListener="#{mustMatchRuleListMB.clear}">
-						<h:outputText value="#{bean.path1.url}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<h:outputText value="#{bean.path.url}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -81,7 +84,7 @@
 					<f:facet name="header">#{messages['mustmatchrule.label.variable']}</f:facet>
 					<h:commandLink action="#{mustMatchRuleListMB.getNextView()}" actionListener="#{mustMatchRuleListMB.clear}">
 						<h:outputText value="#{bean.variable}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -89,7 +92,7 @@
 					<f:facet name="header">#{messages['mustmatchrule.label.operator']}</f:facet>
 					<h:commandLink action="#{mustMatchRuleListMB.getNextView()}" actionListener="#{mustMatchRuleListMB.clear}">
 						<h:outputText value="#{bean.operator}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 				
@@ -97,7 +100,7 @@
 					<f:facet name="header">#{messages['mustmatchrule.label.value']}</f:facet>
 					<h:commandLink action="#{mustMatchRuleListMB.getNextView()}" actionListener="#{mustMatchRuleListMB.clear}">
 						<h:outputText value="#{bean.value}" />
-						<f:param name="id" value="#{bean.id1}" />
+						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 						

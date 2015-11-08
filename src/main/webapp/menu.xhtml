@@ -39,16 +39,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form>
-		<p:tabMenu activeIndex="#{param.i}">
+		<p:tabMenu activeIndex="#{param.i}" rendered="#{securityContext.loggedIn}">
 		    <p:menuitem value="Alias" outcome="/menu_alias.jsf" icon=" ui-icon-carat-2-e-w">
 		        <f:param name="i" value="0" />
 		    </p:menuitem>
 		    <p:menuitem value="Rules" outcome="/menu_rules.jsf" icon="ui-icon-document">
 		        <f:param name="i" value="1" />
 		    </p:menuitem>
-		    <p:menuitem value="Settings" outcome="/menu_settings.jsf" icon="ui-icon-wrench">
-		        <f:param name="i" value="2" />
-		    </p:menuitem>
+		    <p:menuitem value="Setting" url="/settings_edit.jsf" actionListener="#{settingsListMB.clear}" icon="ui-icon-wrench">
+		    	<f:param name="i" value="2" />
+		    	<f:param name="id" value="#{settingsEditMB.singletonID}" />
+		    </p:menuitem>		 
 		     <p:menuitem value="Logout" url="/login.jsf" icon="ui-icon-extlink" action="#{loginMB.doLogout}">
 		        <f:param name="i" value="3" />
 		    </p:menuitem>

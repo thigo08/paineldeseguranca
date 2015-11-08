@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class HTTPMethodRuleBC extends DelegateCrud<HTTPMethodRule, Long, HTTPMethodRuleDAO> {
+public class HTTPMethodRuleBC extends DelegateCrud<HTTPMethodRule, String, HTTPMethodRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

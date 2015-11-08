@@ -27,6 +27,7 @@ import org.owasp.esapi.waf.actions.Action;
 import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.RuleWithAllowDeny;
 
 /**
  * This is the Rule subclass executed for &lt;restrict-extension&gt; rules.
@@ -34,63 +35,33 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class PathExtensionRule extends Rule {
+public class PathExtensionRule extends RuleWithAllowDeny {
 
+	@Transient
 	private static final long serialVersionUID = 1L;
-	
-	@Transient
-	private Pattern allow;
-	
-	@Transient
-	private Pattern deny;
-	
-	@OneToOne
-	private UrlPath allow1;
-	
-	@OneToOne
-	private UrlPath deny1;
-	
+				
 	public PathExtensionRule (){
-		allow1 = new UrlPath();
-		deny1 = new UrlPath();
+		super();
 	}
 
 	public PathExtensionRule (String id, Pattern allow, Pattern deny) {
-		this.allow = allow;
-		this.deny = deny;
-		//setId(id);
+		super(allow,deny);
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest request,
 			InterceptingHTTPServletResponse response, 
 			HttpServletResponse httpResponse) {
 
-		if ( allow != null && allow.matcher(request.getRequestURI()).matches() ) {
+		if ( super.getAllow() != null && super.getAllow().matches(request.getRequestURI())) {
 			return new DoNothingAction();
-		} else if ( deny != null && deny.matcher(request.getRequestURI()).matches() ) {
+		} else if ( super.getDeny() != null && super.getDeny().matches(request.getRequestURI()) ) {
 
-			log(request, "Disallowed extension pattern '" + deny.pattern() + "' found on URI '" + request.getRequestURI() + "'");
+			log(request, "Disallowed extension pattern '" + super.getDeny().pattern() + "' found on URI '" + request.getRequestURI() + "'");
 
 			return new DefaultAction();
 		}
 
 		return new DoNothingAction();
-	}
-
-	public UrlPath getAllow1() {
-		return allow1;
-	}
-
-	public void setAllow1(UrlPath allow1) {
-		this.allow1 = allow1;
-	}
-
-	public UrlPath getDeny1() {
-		return deny1;
-	}
-
-	public void setDeny1(UrlPath deny1) {
-		this.deny1 = deny1;
-	}
-
+	}	
 }

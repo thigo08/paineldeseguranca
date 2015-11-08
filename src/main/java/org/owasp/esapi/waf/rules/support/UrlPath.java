@@ -1,4 +1,4 @@
-package org.owasp.esapi.waf.rules;
+package org.owasp.esapi.waf.rules.support;
 
 import java.util.regex.Pattern;
 

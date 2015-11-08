@@ -33,6 +33,7 @@ package org.owasp.esapi.waf.view;
 import javax.inject.Inject;
 
 import org.owasp.esapi.waf.business.DetectOutboundContentRuleBC;
+import org.owasp.esapi.waf.business.PatternEntityBC;
 import org.owasp.esapi.waf.business.UrlPathBC;
 import org.owasp.esapi.waf.rules.DetectOutboundContentRule;
 
@@ -43,14 +44,15 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./detectoutboundcontentrule_list.jsf")
-public class DetectOutboundContentRuleEditMB extends AbstractEditPageBean<DetectOutboundContentRule, Long> {
+public class DetectOutboundContentRuleEditMB extends AbstractEditPageBean<DetectOutboundContentRule, String> {
 
 	private static final long serialVersionUID = 1L;
 	
-	//private DataModel<UrlPath> pathexceptions;
-	
 	@Inject
 	private DetectOutboundContentRuleBC detectOutboundContentRuleBC;
+	
+	@Inject
+	private PatternEntityBC patternEntityBC;
 	
 	@Inject
 	private UrlPathBC urlPathBC;
@@ -67,9 +69,9 @@ public class DetectOutboundContentRuleEditMB extends AbstractEditPageBean<Detect
 	public String insert() {
 		DetectOutboundContentRule detectOutboundContentRule = getBean();
 		
-		urlPathBC.insert(detectOutboundContentRule.getContentType1());
-		urlPathBC.insert(detectOutboundContentRule.getPattern1());
-		urlPathBC.insert(detectOutboundContentRule.getUri1());
+		patternEntityBC.insert(detectOutboundContentRule.getContentType());
+		patternEntityBC.insert(detectOutboundContentRule.getPattern());
+		urlPathBC.insert(detectOutboundContentRule.getPath());
 		
 		this.detectOutboundContentRuleBC.insert(getBean());
 		return getPreviousView();
@@ -82,25 +84,9 @@ public class DetectOutboundContentRuleEditMB extends AbstractEditPageBean<Detect
 		this.detectOutboundContentRuleBC.update(getBean());
 		return getPreviousView();
 	}
-	
-//	public DataModel<UrlPath> getPathExceptions() {
-//		if (pathexceptions == null) {
-//			pathexceptions = new ListDataModel<UrlPath>(getBean().getExceptions());
-//		}
-//
-//		return pathexceptions;
-//	}
-//	
-//	public void addPathException() {
-//		getBean().getExceptions().add(new UrlPath());
-//	}
-//
-//	public void deletePathException() {
-//		getBean().getExceptions().remove(getPathExceptions().getRowData());
-//	}
 
 	@Override
-	protected DetectOutboundContentRule handleLoad(Long id) {
+	protected DetectOutboundContentRule handleLoad(String id) {
 		return this.detectOutboundContentRuleBC.load(id);
 	}
 		

@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class MustMatchRuleBC extends DelegateCrud<MustMatchRule, Long, MustMatchRuleDAO> {
+public class MustMatchRuleBC extends DelegateCrud<MustMatchRule, String, MustMatchRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

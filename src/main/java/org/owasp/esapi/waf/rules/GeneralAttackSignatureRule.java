@@ -29,6 +29,7 @@ import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletRequest;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
 
 /**
  * This is the Rule subclass executed for &lt;general-attack-signature&gt; rules, which 
@@ -39,21 +40,20 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
 @Entity
 public class GeneralAttackSignatureRule extends Rule {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Transient
-	private Pattern signature;
+	private static final long serialVersionUID = 1L;
 	
 	@OneToOne
-	private UrlPath signature1;
+	private PatternEntity signature;
 	
 	public GeneralAttackSignatureRule(){
-		signature1 = new UrlPath();
+		super();
+		signature = new PatternEntity();
 	}
 
 	public GeneralAttackSignatureRule(String id, Pattern signature) {
-		this.signature = signature;
-		//ssetId(id);
+		this.setSignature(new PatternEntity(signature));
+		setId(id);
 	}
 
 	public Action check(HttpServletRequest req,
@@ -65,7 +65,7 @@ public class GeneralAttackSignatureRule extends Rule {
 
 		while(e.hasMoreElements()) {
 			String param = (String)e.nextElement();
-			if ( signature.matcher(request.getDictionaryParameter(param)).matches() ) {
+			if ( signature.matches(request.getDictionaryParameter(param)) ) {
 				log(request,"General attack signature detected in parameter '" + param + "' value '" + request.getDictionaryParameter(param) + "'");
 				return new DefaultAction();
 			}
@@ -74,12 +74,12 @@ public class GeneralAttackSignatureRule extends Rule {
 		return new DoNothingAction();
 	}
 
-	public UrlPath getSignature1() {
-		return signature1;
+	public PatternEntity getSignature() {
+		return signature;
 	}
 
-	public void setSignature1(UrlPath signature1) {
-		this.signature1 = signature1;
+	public void setSignature(PatternEntity signature) {
+		this.signature = signature;
 	}
-	
+
 }

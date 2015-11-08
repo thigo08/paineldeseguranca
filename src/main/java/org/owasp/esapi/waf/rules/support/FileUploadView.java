@@ -1,4 +1,4 @@
-package org.owasp.esapi.waf.rules;
+package org.owasp.esapi.waf.rules.support;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

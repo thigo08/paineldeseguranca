@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class ReplaceContentRuleBC extends DelegateCrud<ReplaceContentRule, Long, ReplaceContentRuleDAO> {
+public class ReplaceContentRuleBC extends DelegateCrud<ReplaceContentRule, String, ReplaceContentRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

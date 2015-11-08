@@ -80,27 +80,20 @@
 
 					<h:outputLabel value="#{messages['IPrule.label.id']}: "
 						for="id" styleClass="text-input" />
-					<h:outputText id="id" value="#{ipRuleEditMB.bean.id1}" />
+					<h:outputText id="id" value="#{ipRuleEditMB.bean.id}" />
 					<p:message for="id" />
 
 					<h:outputLabel value="#{messages['IPrule.label.allowedIP']}: "
 						for="allowedIP" styleClass="text-input" />
-					<h:inputText id="allowedIP" value="#{ipRuleEditMB.bean.allowedIP1.url}"
+					<h:inputText id="allowedIP" value="#{ipRuleEditMB.bean.allowedIP.regex}"
 						title="#{messages['IPrule.alt.allowedIP']}" required="true">
 					</h:inputText>
 					<p:message for="allowedIP" />
 
-					<h:outputLabel value="#{messages['IPrule.label.exactPath']}: "
-						for="exactPath" styleClass="text-input" />
-					<h:inputText id="exactPath"
-						value="#{ipRuleEditMB.bean.exactPath}"
-						title="#{messages['IPrule.alt.exactPath']}" required="true"></h:inputText>
-					<p:message for="exactPath" />
-					
 					<h:outputLabel value="#{messages['IPrule.label.path']}: "
 						for="path" styleClass="text-input" />
 					<h:inputText id="path"
-						value="#{ipRuleEditMB.bean.path1.url}"
+						value="#{ipRuleEditMB.bean.path.url}"
 						title="#{messages['IPrule.alt.path']}" required="true"></h:inputText>
 					<p:message for="path" />
 					

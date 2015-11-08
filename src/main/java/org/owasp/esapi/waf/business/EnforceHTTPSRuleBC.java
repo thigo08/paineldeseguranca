@@ -37,7 +37,7 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class EnforceHTTPSRuleBC extends DelegateCrud<EnforceHTTPSRule, Long, EnforceHTTPSRuleDAO> {
+public class EnforceHTTPSRuleBC extends DelegateCrud<EnforceHTTPSRule, String, EnforceHTTPSRuleDAO> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -29,6 +29,8 @@ import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletRequest;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
+import org.owasp.esapi.waf.rules.support.PatternEntity;
+import org.owasp.esapi.waf.rules.support.RuleWithUrlPath;
 
 /**
  * This is the Rule subclass executed for &lt;virtual-patch&gt; rules.
@@ -36,39 +38,35 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  *
  */
 @Entity
-public class SimpleVirtualPatchRule extends Rule {
+public class SimpleVirtualPatchRule extends RuleWithUrlPath {
 	
+	@Transient
 	private static final long serialVersionUID = 1L;
 
+	@Transient
 	private static final String REQUEST_PARAMETERS = "request.parameters.";
+	@Transient
 	private static final String REQUEST_HEADERS = "request.headers.";
 
-	@Transient
-	private Pattern path;
 	
 	private String variable;
 	
-	@Transient
-	private Pattern valid;
+	@OneToOne
+	private PatternEntity valid;
 	
 	private String message;
-	
-	@OneToOne
-	private UrlPath path1;
-	
-	@OneToOne
-	private UrlPath valid1;
+
 	
 	public SimpleVirtualPatchRule(){
-		path1 = new UrlPath();
-		valid1 = new UrlPath();
+		super();
+		valid = new PatternEntity();
 	}
 
 	public SimpleVirtualPatchRule(String id, Pattern path, String variable, Pattern valid, String message) {
-		//setId(id);
-		this.path = path;
+		super(path);
+		setId(id);
 		this.variable = variable;
-		this.valid = valid;
+		this.setValid(new PatternEntity(valid));
 		this.message = message;
 	}
 
@@ -79,7 +77,7 @@ public class SimpleVirtualPatchRule extends Rule {
 		InterceptingHTTPServletRequest request = (InterceptingHTTPServletRequest)req;
 
 		String uri = request.getRequestURI();
-		if ( ! path.matcher(uri).matches() ) {
+		if ( ! getPath().matches(uri) ) {
 
 			return new DoNothingAction();
 
@@ -124,7 +122,7 @@ public class SimpleVirtualPatchRule extends Rule {
 						} else {
 							value = request.getHeader(s);
 						}
-						if ( value != null && ! valid.matcher(value).matches() ) {
+						if ( value != null && ! valid.matches(value) ) {
 							log(request, "Virtual patch tripped on variable '" + variable + "' (specifically '" + s + "'). User input was '" + value + "' and legal pattern was '" + valid.pattern() + "': " + message);
 							return new DefaultAction();
 						}
@@ -137,7 +135,7 @@ public class SimpleVirtualPatchRule extends Rule {
 
 				if ( parameter ) {
 					String value = request.getDictionaryParameter(target);
-					if ( value == null || valid.matcher(value).matches() ) {
+					if ( value == null || valid.matches(value) ) {
 						return new DoNothingAction();
 					} else {
 						log(request, "Virtual patch tripped on parameter '" + target + "'. User input was '" + value + "' and legal pattern was '" + valid.pattern() + "': " + message);
@@ -145,7 +143,7 @@ public class SimpleVirtualPatchRule extends Rule {
 					}
 				} else {
 					String value = request.getHeader(target);
-					if ( value == null || valid.matcher(value).matches() ) {
+					if ( value == null || valid.matches(value) ) {
 						return new DoNothingAction();
 					} else {
 						log(request, "Virtual patch tripped on header '" + target + "'. User input was '" + value + "' and legal pattern was '" + valid.pattern() + "': " + message);
@@ -166,28 +164,20 @@ public class SimpleVirtualPatchRule extends Rule {
 		this.variable = variable;
 	}
 
+	public PatternEntity getValid() {
+		return valid;
+	}
+
+	public void setValid(PatternEntity valid) {
+		this.valid = valid;
+	}
+
 	public String getMessage() {
 		return message;
 	}
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public UrlPath getPath1() {
-		return path1;
-	}
-
-	public void setPath1(UrlPath path1) {
-		this.path1 = path1;
-	}
-
-	public UrlPath getValid1() {
-		return valid1;
-	}
-
-	public void setValid1(UrlPath valid1) {
-		this.valid1 = valid1;
 	}
 
 }

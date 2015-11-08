@@ -80,12 +80,12 @@
 
 					<h:outputLabel value="#{messages['HTTPmethodrule.label.id']}: "
 						for="id" styleClass="text-input" />
-					<h:outputText id="id" value="#{httpMethodRuleEditMB.bean.id1}" />
+					<h:outputText id="id" value="#{httpMethodRuleEditMB.bean.id}" />
 					<p:message for="id" />
 
 					<h:outputLabel value="#{messages['HTTPmethodrule.label.allowedMethods']}: "
 						for="allowedMethods" styleClass="text-input" />
-					<h:inputText id="allowedMethods" value="#{httpMethodRuleEditMB.bean.allowedMethods1.url}"
+					<h:inputText id="allowedMethods" value="#{httpMethodRuleEditMB.bean.allowedMethods.regex}"
 						title="#{messages['HTTPmethodrule.alt.allowedMethods']}" required="true">
 					</h:inputText>
 					<p:message for="allowedMethods" />
@@ -93,14 +93,14 @@
 					<h:outputLabel value="#{messages['HTTPmethodrule.label.deniedMethods']}: "
 						for="deniedMethods" styleClass="text-input" />
 					<h:inputText id="deniedMethods"
-						value="#{httpMethodRuleEditMB.bean.deniedMethods1.url}"
+						value="#{httpMethodRuleEditMB.bean.deniedMethods.regex}"
 						title="#{messages['HTTPmethodrule.alt.deniedMethods']}" required="true"></h:inputText>
 					<p:message for="deniedMethods" />
 					
 					<h:outputLabel value="#{messages['HTTPmethodrule.label.path']}: "
 						for="path" styleClass="text-input" />
 					<h:inputText id="path"
-						value="#{httpMethodRuleEditMB.bean.path1.url}"
+						value="#{httpMethodRuleEditMB.bean.path.url}"
 						title="#{messages['HTTPmethodrule.alt.path']}" required="true"></h:inputText>
 					<p:message for="path" />
 

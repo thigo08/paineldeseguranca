@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./simplevirtualpatchrule_edit.jsf")
 @PreviousView("./simplevirtualpatchrule_list.jsf")
-public class SimpleVirtualPatchRuleListMB extends AbstractListPageBean<SimpleVirtualPatchRule, Long> {
+public class SimpleVirtualPatchRuleListMB extends AbstractListPageBean<SimpleVirtualPatchRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class SimpleVirtualPatchRuleListMB extends AbstractListPageBean<SimpleVir
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				simpleVirtualPatchRuleBC.delete(id);

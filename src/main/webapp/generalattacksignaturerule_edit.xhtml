@@ -80,13 +80,13 @@
 
 					<h:outputLabel value="#{messages['generalattacksignaturerule.label.id']}: "
 						for="id" styleClass="text-input" />
-					<h:outputText id="id" value="#{generalAttackSignatureRuleEditMB.bean.id1}" />
+					<h:outputText id="id" value="#{generalAttackSignatureRuleEditMB.bean.id}" />
 					<p:message for="id" />
 
 					<h:outputLabel value="#{messages['generalattacksignaturerule.label.signature']}: "
 						for="signature" styleClass="text-input" />
 					<h:inputText id="signature"
-						value="#{generalAttackSignatureRuleEditMB.bean.signature1.url}"
+						value="#{generalAttackSignatureRuleEditMB.bean.signature.regex}"
 						title="#{messages['generalattacksignaturerule.alt.signature']}" required="true"></h:inputText>
 					<p:message for="signature" />
 

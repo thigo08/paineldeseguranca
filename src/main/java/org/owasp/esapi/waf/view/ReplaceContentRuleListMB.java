@@ -47,7 +47,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 @ViewController
 @NextView("./replacecontentrule_edit.jsf")
 @PreviousView("./replacecontentrule_list.jsf")
-public class ReplaceContentRuleListMB extends AbstractListPageBean<ReplaceContentRule, Long> {
+public class ReplaceContentRuleListMB extends AbstractListPageBean<ReplaceContentRule, String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +76,9 @@ public class ReplaceContentRuleListMB extends AbstractListPageBean<ReplaceConten
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
-		for (Iterator<Long> iter = getSelection().keySet().iterator(); iter
+		for (Iterator<String> iter = getSelection().keySet().iterator(); iter
 				.hasNext();) {
-			Long id = iter.next();
+			String id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
 				replaceContentRuleBC.delete(id);

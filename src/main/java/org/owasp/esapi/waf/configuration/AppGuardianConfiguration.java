@@ -18,8 +18,18 @@ package org.owasp.esapi.waf.configuration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Level;
+import org.owasp.esapi.waf.business.AuthenticatedRuleBC;
 import org.owasp.esapi.waf.rules.Rule;
 
 /**
@@ -29,21 +39,33 @@ import org.owasp.esapi.waf.rules.Rule;
  * @author Arshan Dabirsiaghi
  *
  */
+@Entity
 public class AppGuardianConfiguration {
 
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	/*
 	 * Fail modes (BLOCK blocks and logs the request, DONT_BLOCK simply logs)
 	 */
+	@Transient
 	public static final int LOG = 0;
+	@Transient
 	public static final int REDIRECT = 1;
+	@Transient
 	public static final int BLOCK = 2;
 
 	/*
 	 * The operators.
 	 */
+	@Transient
 	public static final int OPERATOR_EQ = 0;
+	@Transient
 	public static final int OPERATOR_CONTAINS = 1;
+	@Transient
 	public static final int OPERATOR_IN_LIST = 2;
+	@Transient
 	public static final int OPERATOR_EXISTS = 3;
 
 	/*
@@ -51,22 +73,29 @@ public class AppGuardianConfiguration {
 	 * can access them, because they don't have access to the instance of
 	 * the configuration object.
 	 */
+	@Transient
 	public static Level LOG_LEVEL = Level.INFO;	
+	@Transient
 	public static String LOG_DIRECTORY = "/WEB-INF/logs";
 
 	/*
 	 * Logging settings.
 	 */
+	@Transient
 	private Level logLevel = Level.INFO;
 	private String logDirectory = "/WEB-INF/logs";
 
 	/*
 	 * Default settings.
 	 */
-	public static int DEFAULT_FAIL_ACTION = LOG;
+	//@Transient
+	//public static int DEFAULT_FAIL_ACTION = LOG;
+	private int defaultFailAction = LOG;
 
 	// TODO: use UTF-8
+	@Transient
 	public static String DEFAULT_CHARACTER_ENCODING = "ISO-8859-1";
+	@Transient
 	public static String DEFAULT_CONTENT_TYPE = "text/html; charset=" + DEFAULT_CHARACTER_ENCODING;
 
 	/*
@@ -74,13 +103,15 @@ public class AppGuardianConfiguration {
 	 * to use this because response.sendRedirect() can't have an arbitrary
 	 * response code and that is a requirement.
 	 */
+	@Transient
 	public static final String JAVASCRIPT_TARGET_TOKEN = "##1##";
+	@Transient
 	public static final String JAVASCRIPT_REDIRECT = "<html><body><script>document.location='" + JAVASCRIPT_TARGET_TOKEN + "';</script></body></html>";
 
 	/*
 	 * The aliases declared in the beginning of the config file.
 	 */
-	private HashMap<String,Object> aliases;
+	private HashMap<String,Alias> aliases;
 
 	/*
 	 * Fail response settings.
@@ -104,9 +135,20 @@ public class AppGuardianConfiguration {
 	/*
 	 * The object-level rules encapsulated by the stage in which they are executed.
 	 */
+	@OneToMany (fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_BEFORE_BODY_RULES", nullable = true)
 	private List<Rule> beforeBodyRules;
+	
+	@OneToMany (fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_AFTER_BODY_RULES", nullable = true)
 	private List<Rule> afterBodyRules;
+	
+	@OneToMany (fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_BEFORE_RESPONSE_RULES", nullable = true)
 	private List<Rule> beforeResponseRules;
+	
+	@OneToMany (fetch=FetchType.LAZY)
+	@JoinColumn(name = "ID_COOKIE_RULES", nullable = true)
 	private List<Rule> cookieRules;
 
 	public AppGuardianConfiguration() {
@@ -114,8 +156,7 @@ public class AppGuardianConfiguration {
 		afterBodyRules = new ArrayList<Rule>();
 		beforeResponseRules = new ArrayList<Rule>();
 		cookieRules = new ArrayList<Rule>();
-
-		aliases = new HashMap<String,Object>();
+		aliases = new HashMap<String,Alias>();
 	}
 
 	/*
@@ -161,7 +202,12 @@ public class AppGuardianConfiguration {
 	}
 
 	public void addAlias(String key, Object obj) {
-		aliases.put(key, obj);
+		Alias alias = null;
+		if (obj instanceof String)
+			alias = new Alias(key, (String)obj);
+		if (obj instanceof Pattern)
+			alias = new Alias(key, (Pattern)obj);
+		aliases.put(key, alias);
 	}
 
 	public List<Rule> getBeforeBodyRules() {
@@ -223,5 +269,21 @@ public class AppGuardianConfiguration {
 		sb.append( "Cookie rules:\n" );
 		for ( Rule rule : cookieRules ) sb.append( "  " + rule.toString() + "\n" );
 		return sb.toString();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getDefaultFailAction() {
+		return defaultFailAction;
+	}
+
+	public void setDefaultFailAction(int defaultFailAction) {
+		this.defaultFailAction = defaultFailAction;
 	}
 }
