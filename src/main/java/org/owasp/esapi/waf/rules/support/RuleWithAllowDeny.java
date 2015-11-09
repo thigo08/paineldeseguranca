@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 
 import org.owasp.esapi.waf.rules.Rule;
 
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class RuleWithAllowDeny extends Rule {

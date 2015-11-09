@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.owasp.esapi.waf.configuration.AppGuardianConfiguration;
 import org.owasp.esapi.waf.rules.AddHTTPOnlyFlagRule;
 import org.owasp.esapi.waf.rules.AddHeaderRule;

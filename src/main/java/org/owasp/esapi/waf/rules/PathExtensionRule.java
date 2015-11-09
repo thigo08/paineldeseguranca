@@ -18,7 +18,6 @@ package org.owasp.esapi.waf.rules;
 import java.util.regex.Pattern;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +27,7 @@ import org.owasp.esapi.waf.actions.DefaultAction;
 import org.owasp.esapi.waf.actions.DoNothingAction;
 import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
 import org.owasp.esapi.waf.rules.support.RuleWithAllowDeny;
+
 
 /**
  * This is the Rule subclass executed for &lt;restrict-extension&gt; rules.
@@ -44,8 +44,8 @@ public class PathExtensionRule extends RuleWithAllowDeny {
 		super();
 	}
 
-	public PathExtensionRule (String id, Pattern allow, Pattern deny) {
-		super(allow,deny);
+	public PathExtensionRule(String id, Pattern allow, Pattern deny) {
+		super(allow, deny);
 		setId(id);
 	}
 

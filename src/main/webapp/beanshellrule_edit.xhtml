@@ -80,7 +80,7 @@
 
 					<h:outputLabel value="#{messages['beanshellrule.label.id']}: "
 						for="id" styleClass="text-input" />
-					<h:outputText id="id" value="#{beanShellRuleEditMB.bean.id1}" />
+					<h:outputText id="id" value="#{beanShellRuleEditMB.bean.id}" />
 					<p:message for="id" />
 
 					<h:outputLabel value="#{messages['beanshellrule.label.script']}: "
@@ -97,7 +97,7 @@
 					<h:outputLabel value="#{messages['beanshellrule.label.path']}: "
 						for="path" styleClass="text-input" />
 					<h:inputText id="path"
-						value="#{beanShellRuleEditMB.bean.path1.url}"
+						value="#{beanShellRuleEditMB.bean.path.url}"
 						title="#{messages['beanshellrule.alt.path']}" required="true"></h:inputText>
 					<p:message for="path" />
 

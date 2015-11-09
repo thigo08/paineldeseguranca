@@ -25,9 +25,11 @@
         <class>org.owasp.esapi.waf.rules.RestrictContentTypeRule</class>
         <class>org.owasp.esapi.waf.rules.RestrictUserAgentRule</class>
         <class>org.owasp.esapi.waf.rules.SimpleVirtualPatchRule</class>
+        <class>org.owasp.esapi.waf.rules.Rule</class>
         
         <class>org.owasp.esapi.waf.rules.support.UrlPath</class>
         <class>org.owasp.esapi.waf.rules.support.PatternEntity</class>
+        <class>org.owasp.esapi.waf.rules.support.RuleWithAllowDeny</class>
         <class>org.owasp.esapi.waf.rules.support.RuleWithExceptions</class>
         <class>org.owasp.esapi.waf.rules.support.RuleWithPatterns</class>
         <class>org.owasp.esapi.waf.rules.support.RuleWithUrlPath</class>
