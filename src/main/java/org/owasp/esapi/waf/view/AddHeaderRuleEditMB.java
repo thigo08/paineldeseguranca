@@ -67,11 +67,7 @@ public class AddHeaderRuleEditMB extends AbstractEditPageBean<AddHeaderRule, Str
 	
 	@Override
 	@Transactional
-	public String insert() {
-		AddHeaderRule addHeaderRule = getBean();
-		
-		urlPathBC.insert(addHeaderRule.getPath());
-		
+	public String insert() {	
 		this.addHeaderRuleBC.insert(getBean());
 		return getPreviousView();
 	}

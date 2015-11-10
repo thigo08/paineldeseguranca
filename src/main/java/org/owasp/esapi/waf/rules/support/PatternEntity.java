@@ -22,10 +22,6 @@ public class PatternEntity {
 	
 	private String regex;
 	
-	@ManyToOne
-	@JoinColumn(name = "fk_id_rule")
-	private Rule rule;
-	
 	@Transient
 	protected Pattern pattern;
 
@@ -68,14 +64,6 @@ public class PatternEntity {
 
 	public void setRegex(String regex) {
 		this.regex = regex;
-	}
-	
-	public Rule getRule() {
-		return rule;
-	}
-
-	public void setRule(Rule rule) {
-		this.rule = rule;
 	}
 	
 	public String pattern(){

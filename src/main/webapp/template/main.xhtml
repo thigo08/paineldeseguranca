@@ -13,17 +13,7 @@
 		<tr>
 			<td height="70" align="center">
 				<a href="desktop_welcome.jsf"><img src="resources/images/logo1.png" width="60" height="60" border="0" /></a>
-				<div style="float: right;">
-					<h:form id="language_form" prependId="true">
-						<h:commandLink action="#{locales.setCurrentLocale('pt')}">
-							<span class="ui-icon-locale-pt" ></span>
-						</h:commandLink>
-						<h:commandLink action="#{locales.setCurrentLocale('en')}">
-							<span class="ui-icon-locale-en" ></span>
-						</h:commandLink>
-					</h:form>
-				</div>
-			</td>
+			</td>			
 		</tr>
 		<div align="center" > 
 			<p:panel>
@@ -42,6 +32,15 @@
 		<tr align="center">
 			<td height="20" colspan="2" align="center" class="text-input"><img src="resources/images/bottom1.png"  width="100" height="78" border="0" /></td>
 		</tr>
+		<tr>
+				<div style="float: right;">
+				<h:form>
+					   	<p:commandButton value="Help" ajax="false"  icon="ui-icon-help">
+					    	<p:fileDownload value="#{fileDownloadView.file}" />
+					    </p:commandButton>
+					</h:form>
+				</div>
+			</tr>
 	</table>
 
 	<p:growl id="messages" globalOnly="true" />

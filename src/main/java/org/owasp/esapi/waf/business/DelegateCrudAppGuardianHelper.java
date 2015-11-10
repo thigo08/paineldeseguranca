@@ -48,11 +48,11 @@ public class DelegateCrudAppGuardianHelper<T, I, C extends Crud<T, I>> extends D
 	@Override
 	@Transactional	
 	public T insert(final T bean) {
-
+		//Rule rule = (Rule) bean; 
 		Rule rule = (Rule) super.insert(bean);
 		this.getListByRuleType(bean).add(rule);
-
-		appGuardianConfigurationBC.update(config);
+//
+		//appGuardianConfigurationBC.update(config);
 
 		return bean;
 	}

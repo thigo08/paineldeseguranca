@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Level;
-import org.owasp.esapi.waf.business.AuthenticatedRuleBC;
 import org.owasp.esapi.waf.rules.Rule;
 
 /**
@@ -111,6 +111,8 @@ public class AppGuardianConfiguration {
 	/*
 	 * The aliases declared in the beginning of the config file.
 	 */
+	//TODO: Resolver como @OneToMany
+	@Transient
 	private HashMap<String,Alias> aliases;
 
 	/*
@@ -135,19 +137,19 @@ public class AppGuardianConfiguration {
 	/*
 	 * The object-level rules encapsulated by the stage in which they are executed.
 	 */
-	@OneToMany (fetch=FetchType.LAZY)
+	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
 	@JoinColumn(name = "ID_BEFORE_BODY_RULES", nullable = true)
 	private List<Rule> beforeBodyRules;
 	
-	@OneToMany (fetch=FetchType.LAZY)
+	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
 	@JoinColumn(name = "ID_AFTER_BODY_RULES", nullable = true)
 	private List<Rule> afterBodyRules;
 	
-	@OneToMany (fetch=FetchType.LAZY)
+	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
 	@JoinColumn(name = "ID_BEFORE_RESPONSE_RULES", nullable = true)
 	private List<Rule> beforeResponseRules;
 	
-	@OneToMany (fetch=FetchType.LAZY)
+	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
 	@JoinColumn(name = "ID_COOKIE_RULES", nullable = true)
 	private List<Rule> cookieRules;
 

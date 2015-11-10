@@ -2,6 +2,7 @@ package org.owasp.esapi.waf.rules.support;
 
 import java.util.regex.Pattern;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -19,8 +20,8 @@ public abstract class RuleWithUrlPath extends Rule {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
-	@JoinColumn(name = "fk_id_rule") 
+	@OneToOne (targetEntity=UrlPath.class, cascade={CascadeType.ALL}, orphanRemoval=true)
+	@JoinColumn(name = "fk_id_rule", referencedColumnName="id") 
 	private UrlPath path;
 	
 	public RuleWithUrlPath(){

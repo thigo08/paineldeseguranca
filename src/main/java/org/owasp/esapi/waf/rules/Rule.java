@@ -39,8 +39,9 @@ import org.owasp.esapi.waf.internal.InterceptingHTTPServletResponse;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class Rule implements Serializable{
-		
+public class Rule implements Serializable{
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -55,7 +56,10 @@ public abstract class Rule implements Serializable{
 		
 	}
 
-	public abstract Action check( HttpServletRequest request, InterceptingHTTPServletResponse response, HttpServletResponse httpResponse );
+	//public abstract Action check( HttpServletRequest request, InterceptingHTTPServletResponse response, HttpServletResponse httpResponse );
+	public Action check( HttpServletRequest request, InterceptingHTTPServletResponse response, HttpServletResponse httpResponse ){
+		return null;
+	}
 
 	public void log( HttpServletRequest request, String message ) {
 		logger.warning(Logger.SECURITY_FAILURE,"[IP=" + request.getRemoteAddr() +
